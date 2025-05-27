@@ -7,13 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		ED87CEEF2DE5491000397148 /* feature_request.md in Sources */ = {isa = PBXBuildFile; fileRef = ED87CEEE2DE5490600397148 /* feature_request.md */; };
 		ED87CEF32DE5497F00397148 /* pull_request_template.md in Resources */ = {isa = PBXBuildFile; fileRef = ED87CEF22DE5497D00397148 /* pull_request_template.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		ED87CEDA2DE44FE900397148 /* Gisellina.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Gisellina.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		ED87CEEE2DE5490600397148 /* feature_request.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = feature_request.md; sourceTree = "<group>"; };
 		ED87CEF22DE5497D00397148 /* pull_request_template.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = pull_request_template.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -57,17 +55,8 @@
 			isa = PBXGroup;
 			children = (
 				ED87CEF22DE5497D00397148 /* pull_request_template.md */,
-				ED87CEF12DE5494100397148 /* ISSUE_TEMPLATE */,
-				ED87CEEE2DE5490600397148 /* feature_request.md */,
 			);
 			path = .github;
-			sourceTree = "<group>";
-		};
-		ED87CEF12DE5494100397148 /* ISSUE_TEMPLATE */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ISSUE_TEMPLATE;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -145,7 +134,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ED87CEEF2DE5491000397148 /* feature_request.md in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
