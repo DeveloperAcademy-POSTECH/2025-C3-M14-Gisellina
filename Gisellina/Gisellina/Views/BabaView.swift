@@ -10,7 +10,7 @@ import SwiftUI
 struct BabaView: View {
     var body: some View {
         // TODO: BabaButton() 추가하기
-        
+        Text("바바뷰")
     }
 }
 
