@@ -11,7 +11,7 @@ import SwiftUI
 struct GisellinaApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ExerciseMissionView()
         }
     }
 }

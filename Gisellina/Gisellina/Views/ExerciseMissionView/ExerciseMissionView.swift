@@ -16,17 +16,17 @@ struct ExerciseMissionView: View {
         }
     
     var body: some View {
-        ZStack{
+        ZStack {
             Image("ExerciseMissionView_background")
                 .resizable()
                 .ignoresSafeArea(edges: .all)
             
             VStack(spacing: 12){
                 ZStack{
-                    HStack(alignment: .center){
+                    HStack {
                         Button(action: {}) {
-                            Image(systemName: "arrow.left")
-                                .font(.system(size: 20, weight: .bold))
+                            Image(systemName: "chevron.left")
+                                .font(.system(size: 24, weight: .bold))
                                 .foregroundColor(.white)
                         }
                         Spacer()
@@ -41,7 +41,7 @@ struct ExerciseMissionView: View {
                 }
                 .frame(maxWidth: .infinity)
                 
-                HStack(alignment: .top){
+                HStack(alignment: .top) {
                     Image("CharacterImage")
                         .resizable()
                         .scaledToFit()
