@@ -10,12 +10,11 @@ import SwiftUI
 struct MainView: View {
     @EnvironmentObject var router: Router
     
+    @State var progressValue: CGFloat = 0.8
+    @State var vacation = 5
+    @State var level = 1
     
     var body: some View {
-        @State var progressValue: CGFloat = 0.8
-        @State var vacation = 5
-        @State var level = 1
-        
         NavigationStack(path: $router.path) {
             ZStack {
                 VStack() {
@@ -66,6 +65,7 @@ struct MainView: View {
                         })
                             .frame(height: 175)
                     }
+                    .padding(.top, 30)
                 }
                 
                 .padding(24)

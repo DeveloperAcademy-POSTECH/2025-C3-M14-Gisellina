@@ -12,7 +12,7 @@ struct GisellinaApp: App {
     @StateObject private var router = Router()
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            MainView()
                 .environmentObject(router)
         }
     }
