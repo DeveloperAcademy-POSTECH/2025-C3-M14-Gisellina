@@ -1,48 +1,73 @@
 import SwiftUI
 
 struct StudyMissionView : View {
-    
     //MARK: - 변수 설정
     @State private var showHintSheet = false
+    @Environment(\.dismiss) var dismiss
     
+    //MARK: - Safe Area Top을 설정합니다.
+    
+    var safeAreaTop: CGFloat {
+            UIApplication.shared.connectedScenes
+                .compactMap { ($0 as? UIWindowScene)?.windows.first?.safeAreaInsets.top }
+                .first ?? 20 // 기본값 20 (예: iPhone SE)
+        }
+    
+
     //MARK: - View Start
     var body: some View {
-        NavigationStack{
-            VStack(spacing: 0){
-                //MARK: - Top Navigation Menu Bar
-                ZStack {
+        
+        ZStack {
+            Image("ExerciseMissionView_background")
+                .resizable()
+                .ignoresSafeArea(edges: .all)
+            
+            VStack(spacing: 12){
+                
+                //MARK: - Top Navigation Menu Bar(look like Noah View)
+                ZStack{
+                    HStack {
+                        Button{
+                          dismiss()
+                        } label:{
+                            Image(systemName: "chevron.left")
+                                .font(.system(size: 24, weight: .bold))
+                                .foregroundColor(.white)
+                        }
+                        Spacer()
+                    }
+                    
+                    HStack{
+                        Text("오늘의 공부")
+                            .font(.system(size: 24, weight: .bold))
+                            .foregroundStyle(.white)
+                    }
+                    
                     HStack {
                         Spacer()
-                        Button(action: {
+                        Button {
                             showHintSheet.toggle()
-                        }) {
+                        } label: {
                             Image("HintIcon")
                                 .foregroundColor(.gray)
                         }
                         .sheet(isPresented: $showHintSheet) {
                             HintSheetView()
-                                .presentationDetents([.height(180), .large])
+                                .presentationDetents([.height(180), .medium])
                                 .presentationCornerRadius(44)
                                 .presentationDragIndicator(.visible)
-                                .background(Color.white)
                                 .shadow(color: .black.opacity(0.2), radius: 10, x: 0, y: -5)
                         }
                     }
                     
-                    Text("오늘의 공부")
-                        .font(.title)
-                        .foregroundColor(.white)
-                        .fontWeight(.bold)
                 }
-                .padding(.horizontal, 24)
-                .background(Color(red: 0.24, green: 0.73, blue: 1))
+                .frame(maxWidth: .infinity)
                 
                 
                 VStack{
                     Image("MissionCharacter")
                 }
                 .frame(maxWidth: .infinity)
-                .background(Color(red: 0.24, green: 0.73, blue: 1))
                 
                 VStack{
                     ZStack(alignment: .bottomTrailing){
@@ -59,25 +84,25 @@ struct StudyMissionView : View {
                 }
                 
                 .padding(.top, 36)
-                .padding(.horizontal,24)
                 
                 NavigationLink {
                     CreateAnswerView()
                 } label: {
-                    Text("답변 작성하기")
+                    Text("답변작성")
                         .frame(width: 320, height: 44)
                         .fontWeight(.bold)
                         .foregroundColor(.white)
-                        .background(Color(red: 0.24, green: 0.73, blue: 1))
+                        .background(Color.blue.opacity(0.6))
                         .clipShape(RoundedRectangle(cornerRadius: 20))
                 }
                 .padding(.top, 20)
                 
                 Spacer()
             }
+            .padding(.horizontal, 24)
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         }
-        
+        .navigationBarBackButtonHidden(true)
     }
 }
 

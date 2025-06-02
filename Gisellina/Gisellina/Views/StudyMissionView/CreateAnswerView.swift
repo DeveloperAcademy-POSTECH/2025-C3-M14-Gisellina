@@ -6,22 +6,59 @@ struct CreateAnswerView: View {
     @State private var keyboardHeight: CGFloat = 0
     @FocusState private var isTextEditorFocused: Bool
     
+    @Environment(\.dismiss) var dismiss
+    
+    //MARK: - Safe Area Top을 설정합니다.
+    
+    var safeAreaTop: CGFloat {
+            UIApplication.shared.connectedScenes
+                .compactMap { ($0 as? UIWindowScene)?.windows.first?.safeAreaInsets.top }
+                .first ?? 20 // 기본값 20 (예: iPhone SE)
+        }
+    
+    
+    //MARK: - View Start
     var body: some View {
-        VStack {
-            VStack(spacing: 0) {
-                Text("오늘의 공부")
-                    .font(.title)
-                    .fontWeight(.bold)
-                    .foregroundColor(Color.white)
-                    .frame(maxWidth: .infinity, alignment: .center)
-                    .padding()
-                    .background(Color(red: 0.24, green: 0.73, blue: 1))
+        ZStack {
+            Image("ExerciseMissionView_background")
+                .resizable()
+                .ignoresSafeArea(edges: .all)
+            
+            VStack(spacing: 12){
                 
-                Image("MissionCharacter")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(height: 240)
-                    .padding()
+                //MARK: - Top Navigation Menu Bar(look like Noah View)
+                ZStack{
+                    HStack {
+                        Button{
+                          dismiss()
+                        } label:{
+                            Image(systemName: "chevron.left")
+                                .font(.system(size: 24, weight: .bold))
+                                .foregroundColor(.white)
+                        }
+                        Spacer()
+                    }
+                    
+                    HStack{
+                        Text("민법")
+                            .font(.system(size: 24, weight: .bold))
+                            .foregroundStyle(.white)
+                    }
+                    
+                    HStack {
+                        Spacer()
+                       
+                    }
+                    
+                }
+                .frame(maxWidth: .infinity)
+                
+                
+                VStack{
+                    Image("MissionCharacter")
+                }
+                .frame(maxWidth: .infinity)
+                
                 
                 Text("답변을 작성해 보세요")
                     .font(.title2)
@@ -31,11 +68,10 @@ struct CreateAnswerView: View {
                     .font(.callout)
                     .padding(.bottom)
                 
-                
                 ZStack(alignment: .topLeading) {
                     RoundedRectangle(cornerRadius: 12)
-                        .fill(Color.gray.opacity(0.2))
-
+                        .fill(Color.gray.opacity(0.1))
+                    
                     // Placeholder
                     if writeANswerText.isEmpty {
                         Text("관련 법령, 판례, 논리를 바탕으로 사건을 검토해주세요.")
@@ -43,7 +79,7 @@ struct CreateAnswerView: View {
                             .foregroundColor(.gray)
                             .padding(12)
                     }
-
+                    
                     TextEditor(text: $writeANswerText)
                         .font(.caption)
                         .padding(8)
@@ -52,22 +88,21 @@ struct CreateAnswerView: View {
                         .focused($isTextEditorFocused)
                 }
                 .frame(height: 252)
-                .padding()
                 
                 NavigationLink(destination: {
                     StudyMissionCompleteView()
                 }, label: {
                     Text("제출하기")
-                        .frame(width: 325, height: 50)
+                        .frame(width: 240, height: 50)
                         .foregroundStyle(.white)
-                        .background(Color.blue)
+                        .background(Color(red: 0, green: 0.58, blue: 0.9))
                         .clipShape(RoundedRectangle(cornerRadius: 12))
                 })
-
-                
             }
-            .padding()
+            .padding(.horizontal, 24)
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         }
+        .navigationBarBackButtonHidden(true)
     }
 }
 

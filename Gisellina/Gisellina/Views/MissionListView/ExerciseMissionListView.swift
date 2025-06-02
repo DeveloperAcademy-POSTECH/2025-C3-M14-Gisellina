@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ExerciseMisiionListView: View {
+struct ExerciseMissionListView: View {
     var body: some View {
         VStack(spacing: 0){
             HStack(alignment: .center){
@@ -104,5 +104,5 @@ struct ExerciseMissionListCell: View {
 
 
 #Preview {
-    ExerciseMisiionListView()
+    ExerciseMissionListView()
 }
