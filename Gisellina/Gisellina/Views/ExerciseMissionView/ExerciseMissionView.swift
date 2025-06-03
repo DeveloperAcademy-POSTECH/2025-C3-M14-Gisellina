@@ -160,6 +160,7 @@ struct ExerciseMissionView: View {
             }
             .padding(.horizontal, 24)
         }
+        .navigationBarBackButtonHidden(true)
     }
 }
 

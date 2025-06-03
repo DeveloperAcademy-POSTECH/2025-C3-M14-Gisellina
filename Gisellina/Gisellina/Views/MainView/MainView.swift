@@ -77,9 +77,9 @@ struct MainView: View {
                 case .studyMission:
                     StudyMissionView()
                 case .exerciseMission:
-                    ContentView()  //수정 필요
+                    ExerciseMissionView()  //수정 필요
                 case .missionList:
-                    ContentView()
+                    StudyMissionListView()
                     
                 }
             }
