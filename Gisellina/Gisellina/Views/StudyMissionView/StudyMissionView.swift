@@ -68,7 +68,7 @@ struct StudyMissionView : View {
                     Image("MissionCharacter")
                 }
                 .frame(maxWidth: .infinity)
-                
+                //MARK: - Data 가정해져야 한다.
                 VStack{
                     ZStack(alignment: .bottomTrailing){
                         ScrollView{
