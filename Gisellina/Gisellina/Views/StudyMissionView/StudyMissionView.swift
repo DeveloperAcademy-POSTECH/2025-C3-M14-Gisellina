@@ -1,9 +1,9 @@
 import SwiftUI
 
 struct StudyMissionView : View {
+    @EnvironmentObject var router: Router
     //MARK: - 변수 설정
     @State private var showHintSheet = false
-    @Environment(\.dismiss) var dismiss
     
     //MARK: - Safe Area Top을 설정합니다.
     
@@ -28,7 +28,7 @@ struct StudyMissionView : View {
                 ZStack{
                     HStack {
                         Button{
-                          dismiss()
+                            router.pop()
                         } label:{
                             Image(systemName: "chevron.left")
                                 .font(.system(size: 24, weight: .bold))
