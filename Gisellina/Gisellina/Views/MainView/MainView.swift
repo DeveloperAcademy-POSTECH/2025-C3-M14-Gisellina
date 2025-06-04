@@ -9,10 +9,13 @@ import SwiftUI
 
 struct MainView: View {
     @EnvironmentObject var router: Router
+    @StateObject private var viewModel = MainViewModel()
     
     @State var progressValue: CGFloat = 0.8
     @State var vacation = 5
     @State var level = 1
+    
+    @State private var isLoaded = false
     
     var body: some View {
         NavigationStack(path: $router.path) {
@@ -27,6 +30,10 @@ struct MainView: View {
                             .frame(width: 40)
                             .onTapGesture {
                                 router.push(.missionList)
+                                Task {
+                                    await viewModel.addUser(name: "Jamin", exp: 100, vacation: 5)
+                                    await viewModel.fetchUsers()
+                                }
                             }
                     }
                     
@@ -58,12 +65,12 @@ struct MainView: View {
                         MainButton(type: .study, action: {
                             router.push(.studyMission)
                         })
-                            .frame(height: 175)
+                        .frame(height: 175)
                         
                         MainButton(type: .exercise, action: {
                             router.push(.exerciseMission)
                         })
-                            .frame(height: 175)
+                        .frame(height: 175)
                     }
                     .padding(.top, 30)
                 }
@@ -82,6 +89,12 @@ struct MainView: View {
                     ExerciseMissionListCell()
                     
                 }
+            }
+        }
+        .onAppear {
+            print("MainView onAppear 실행됨")
+            Task {
+                await viewModel.fetchUsers()
             }
         }
     }
