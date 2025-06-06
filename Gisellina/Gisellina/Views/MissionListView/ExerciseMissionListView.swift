@@ -8,18 +8,22 @@
 import SwiftUI
 
 struct ExerciseMissionListView: View {
+    @EnvironmentObject var router: Router
+    
     var body: some View {
         VStack(spacing: 0){
-            HStack(alignment: .center){
-                Button(action: {}) {
-                    Image(systemName: "chevron.left")
-                        .font(.system(size: 24, weight: .bold))
-                        .foregroundColor(.black)
-                }
-                Spacer()
-            }
-//            .background(.red)
-            .padding(.horizontal, 20)
+            CustomNavigationBar(
+                title: "컨디션 점검",
+                titleColor: .white,    // ← 제목 텍스트 색상
+                leftItem: AnyView(
+                    NavigationIconButton(
+                        action: { router.pop() },
+                        iconName: "chevron.left",
+                        iconColor: .black     // ← 아이콘 색상
+                    )
+                )
+            )
+            .padding(.horizontal, 24)
             
             VStack(spacing: 0){
                 HStack(spacing: 0){
