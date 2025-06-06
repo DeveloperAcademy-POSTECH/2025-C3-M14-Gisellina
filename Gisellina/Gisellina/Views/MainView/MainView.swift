@@ -79,7 +79,7 @@ struct MainView: View {
                 case .exerciseMission:
                     ExerciseMissionView()  //수정 필요
                 case .missionList:
-                    ExerciseMissionListCell()
+                    StudyMissionListView()
                     
                 }
             }

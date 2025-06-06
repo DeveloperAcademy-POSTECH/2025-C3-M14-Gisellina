@@ -6,7 +6,7 @@ struct CreateAnswerView: View {
     @State private var keyboardHeight: CGFloat = 0
     @FocusState private var isTextEditorFocused: Bool
     
-    @Environment(\.dismiss) var dismiss
+    @EnvironmentObject var router: Router
     
     //MARK: - Safe Area Top을 설정합니다.
     
@@ -27,31 +27,17 @@ struct CreateAnswerView: View {
             VStack(spacing: 12){
                 
                 //MARK: - Top Navigation Menu Bar(look like Noah View)
-                ZStack{
-                    HStack {
-                        Button{
-                          dismiss()
-                        } label:{
-                            Image(systemName: "chevron.left")
-                                .font(.system(size: 24, weight: .bold))
-                                .foregroundColor(.white)
-                        }
-                        Spacer()
-                    }
-                    
-                    HStack{
-                        Text("민법")
-                            .font(.system(size: 24, weight: .bold))
-                            .foregroundStyle(.white)
-                    }
-                    
-                    HStack {
-                        Spacer()
-                       
-                    }
-                    
-                }
-                .frame(maxWidth: .infinity)
+                CustomNavigationBar(
+                    title: "사건 검토하기",
+                    titleColor: .white,    // ← 제목 텍스트 색상
+                    leftItem: AnyView(
+                        NavigationIconButton(
+                            action: { router.pop() },
+                            iconName: "chevron.left",
+                            iconColor: .white     // ← 아이콘 색상
+                        )
+                    )
+                )
                 
                 
                 VStack{

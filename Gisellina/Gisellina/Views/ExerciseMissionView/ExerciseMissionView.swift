@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ExerciseMissionView: View {
+    @EnvironmentObject var router: Router
     
     var safeAreaTop: CGFloat {
             UIApplication.shared.connectedScenes
@@ -22,24 +23,17 @@ struct ExerciseMissionView: View {
                 .ignoresSafeArea(edges: .all)
             
             VStack(spacing: 12){
-                ZStack{
-                    HStack {
-                        Button(action: {}) {
-                            Image(systemName: "chevron.left")
-                                .font(.system(size: 24, weight: .bold))
-                                .foregroundColor(.white)
-                        }
-                        Spacer()
-                    }
-                    HStack{
-                        Spacer()
-                        Text("컨디션 점검")
-                            .font(.system(size: 24, weight: .bold))
-                            .foregroundStyle(.white)
-                        Spacer()
-                    }
-                }
-                .frame(maxWidth: .infinity)
+                CustomNavigationBar(
+                    title: "컨디션 점검",
+                    titleColor: .white,    // ← 제목 텍스트 색상
+                    leftItem: AnyView(
+                        NavigationIconButton(
+                            action: { router.pop() },
+                            iconName: "chevron.left",
+                            iconColor: .white     // ← 아이콘 색상
+                        )
+                    )
+                )
                 
                 HStack(alignment: .top) {
                     Image("CharacterImage")
@@ -160,6 +154,7 @@ struct ExerciseMissionView: View {
             }
             .padding(.horizontal, 24)
         }
+        .navigationBarBackButtonHidden(true)
     }
 }
 
