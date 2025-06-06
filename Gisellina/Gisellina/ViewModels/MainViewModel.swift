@@ -13,7 +13,6 @@ final class MainViewModel: ObservableObject {
     @Published var errorMessage: String?
 
     //Users 불러오기
-
     func fetchUsers() async {
         do {
             let result = try await UserService.fetchUsers()
