@@ -9,10 +9,13 @@ import SwiftUI
 
 struct MainView: View {
     @EnvironmentObject var router: Router
+    @StateObject private var viewModel = MissionViewModel()
     
     @State var progressValue: CGFloat = 0.8
     @State var vacation = 5
     @State var level = 1
+    
+    @State private var isLoaded = false
     
     var body: some View {
         NavigationStack(path: $router.path) {
@@ -56,14 +59,25 @@ struct MainView: View {
                     
                     LazyVGrid(columns: [GridItem(.flexible(), spacing: 15), GridItem(.flexible())]) {
                         MainButton(type: .study, action: {
-                            router.push(.studyMission)
+                            Task {
+                                await viewModel.loadStudyMission()
+                                if let mission = viewModel.studyMission {
+                                    router.push(.studyMission(mission))
+                                }
+                            }
                         })
-                            .frame(height: 175)
+                        .frame(height: 175)
                         
                         MainButton(type: .exercise, action: {
-                            router.push(.exerciseMission)
+                            Task {
+                                await viewModel.loadExerciseMissions()
+                                
+                                if let missions = viewModel.exerciseMissions {
+                                    router.push(.exerciseMission(missions))
+                                }
+                            }
                         })
-                            .frame(height: 175)
+                        .frame(height: 175)
                     }
                     .padding(.top, 30)
                 }
@@ -74,15 +88,18 @@ struct MainView: View {
             .background(.c3MainBackground)
             .navigationDestination(for: AppRoute.self) { route in
                 switch route {
-                case .studyMission:
-                    StudyMissionView()
-                case .exerciseMission:
-                    ExerciseMissionView()  //수정 필요
+                case .studyMission(let mission):
+                    StudyMissionView(mission: mission)
+                case .exerciseMission(let missions):
+                    ExerciseMissionView(missions: missions)  //수정 필요
                 case .missionList:
                     StudyMissionListView()
                     
                 }
             }
+        }
+        .onAppear {
+            print("MainView onAppear 실행됨")
         }
     }
     
