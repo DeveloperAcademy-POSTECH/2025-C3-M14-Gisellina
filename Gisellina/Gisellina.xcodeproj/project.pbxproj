@@ -6,6 +6,15 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		ED53EAF32DEEEB93003C8593 /* Auth in Frameworks */ = {isa = PBXBuildFile; productRef = ED53EAF22DEEEB93003C8593 /* Auth */; };
+		ED53EAF52DEEEB93003C8593 /* Functions in Frameworks */ = {isa = PBXBuildFile; productRef = ED53EAF42DEEEB93003C8593 /* Functions */; };
+		ED53EAF72DEEEB93003C8593 /* PostgREST in Frameworks */ = {isa = PBXBuildFile; productRef = ED53EAF62DEEEB93003C8593 /* PostgREST */; };
+		ED53EAF92DEEEB93003C8593 /* Realtime in Frameworks */ = {isa = PBXBuildFile; productRef = ED53EAF82DEEEB93003C8593 /* Realtime */; };
+		ED53EAFB2DEEEB93003C8593 /* Storage in Frameworks */ = {isa = PBXBuildFile; productRef = ED53EAFA2DEEEB93003C8593 /* Storage */; };
+		ED53EB5D2DEEEE3A003C8593 /* Supabase in Frameworks */ = {isa = PBXBuildFile; productRef = ED53EB5C2DEEEE3A003C8593 /* Supabase */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		ED87CEDA2DE44FE900397148 /* Gisellina.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Gisellina.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -23,6 +32,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ED53EAF72DEEEB93003C8593 /* PostgREST in Frameworks */,
+				ED53EAF52DEEEB93003C8593 /* Functions in Frameworks */,
+				ED53EB5D2DEEEE3A003C8593 /* Supabase in Frameworks */,
+				ED53EAF32DEEEB93003C8593 /* Auth in Frameworks */,
+				ED53EAFB2DEEEB93003C8593 /* Storage in Frameworks */,
+				ED53EAF92DEEEB93003C8593 /* Realtime in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +80,12 @@
 			);
 			name = Gisellina;
 			packageProductDependencies = (
+				ED53EAF22DEEEB93003C8593 /* Auth */,
+				ED53EAF42DEEEB93003C8593 /* Functions */,
+				ED53EAF62DEEEB93003C8593 /* PostgREST */,
+				ED53EAF82DEEEB93003C8593 /* Realtime */,
+				ED53EAFA2DEEEB93003C8593 /* Storage */,
+				ED53EB5C2DEEEE3A003C8593 /* Supabase */,
 			);
 			productName = Gisellina;
 			productReference = ED87CEDA2DE44FE900397148 /* Gisellina.app */;
@@ -94,6 +115,9 @@
 			);
 			mainGroup = ED87CED12DE44FE900397148;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				ED53EAF12DEEEB93003C8593 /* XCRemoteSwiftPackageReference "supabase-swift" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = ED87CEDB2DE44FE900397148 /* Products */;
 			projectDirPath = "";
@@ -253,7 +277,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = WJKNV9KXF2;
+				DEVELOPMENT_TEAM = PNDHN9YB2X;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -282,7 +306,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = WJKNV9KXF2;
+				DEVELOPMENT_TEAM = PNDHN9YB2X;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -326,6 +350,50 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		ED53EAF12DEEEB93003C8593 /* XCRemoteSwiftPackageReference "supabase-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/supabase/supabase-swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.5.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		ED53EAF22DEEEB93003C8593 /* Auth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = ED53EAF12DEEEB93003C8593 /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = Auth;
+		};
+		ED53EAF42DEEEB93003C8593 /* Functions */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = ED53EAF12DEEEB93003C8593 /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = Functions;
+		};
+		ED53EAF62DEEEB93003C8593 /* PostgREST */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = ED53EAF12DEEEB93003C8593 /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = PostgREST;
+		};
+		ED53EAF82DEEEB93003C8593 /* Realtime */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = ED53EAF12DEEEB93003C8593 /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = Realtime;
+		};
+		ED53EAFA2DEEEB93003C8593 /* Storage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = ED53EAF12DEEEB93003C8593 /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = Storage;
+		};
+		ED53EB5C2DEEEE3A003C8593 /* Supabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = ED53EAF12DEEEB93003C8593 /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = Supabase;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = ED87CED22DE44FE900397148 /* Project object */;
 }

@@ -8,7 +8,7 @@
 
 //MARK: - 우리가 갈 수 있는 목적지 모음
 enum AppRoute: Hashable {
-    case studyMission
-    case exerciseMission
     case missionList
+    case studyMission(StudyMissionDetail)
+    case exerciseMission([ExerciseMissionDetail])
 }

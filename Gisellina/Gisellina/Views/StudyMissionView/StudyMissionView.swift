@@ -1,9 +1,13 @@
 import SwiftUI
 
 struct StudyMissionView : View {
+    @EnvironmentObject var router: Router
     //MARK: - 변수 설정
     @State private var showHintSheet = false
+
     @Environment(\.dismiss) var dismiss
+    let mission: StudyMissionDetail
+
     
     //MARK: - Safe Area Top을 설정합니다.
     
@@ -25,44 +29,24 @@ struct StudyMissionView : View {
             VStack(spacing: 12){
                 
                 //MARK: - Top Navigation Menu Bar(look like Noah View)
-                ZStack{
-                    HStack {
-                        Button{
-                          dismiss()
-                        } label:{
-                            Image(systemName: "chevron.left")
-                                .font(.system(size: 24, weight: .bold))
-                                .foregroundColor(.white)
-                        }
-                        Spacer()
-                    }
-                    
-                    HStack{
-                        Text("오늘의 공부")
-                            .font(.system(size: 24, weight: .bold))
-                            .foregroundStyle(.white)
-                    }
-                    
-                    HStack {
-                        Spacer()
-                        Button {
-                            showHintSheet.toggle()
-                        } label: {
-                            Image("HintIcon")
-                                .foregroundColor(.gray)
-                        }
-                        .sheet(isPresented: $showHintSheet) {
-                            HintSheetView()
-                                .presentationDetents([.height(180), .medium])
-                                .presentationCornerRadius(44)
-                                .presentationDragIndicator(.visible)
-                                .shadow(color: .black.opacity(0.2), radius: 10, x: 0, y: -5)
-                        }
-                    }
-                    
-                }
-                .frame(maxWidth: .infinity)
-                
+                CustomNavigationBar(
+                    title: "사건 검토하기",
+                    titleColor: .white,    // ← 제목 텍스트 색상
+                    leftItem: AnyView(
+                        NavigationIconButton(
+                            action: { router.pop() },
+                            iconName: "chevron.left",
+                            iconColor: .white     // ← 아이콘 색상
+                        )
+                    ),
+                    rightItem: AnyView(
+                        NavigationIconButton(
+                            action: { router.pop() },
+                            iconName: "gear",
+                            iconColor: .white  // ← 오른쪽 아이콘 색상
+                        )
+                    )
+                )
                 
                 VStack{
                     Image("MissionCharacter")
@@ -72,7 +56,7 @@ struct StudyMissionView : View {
                 VStack{
                     ZStack(alignment: .bottomTrailing){
                         ScrollView{
-                            Text("1. 갑과 을은 갑 소유의 주택에 대한 매매계약을 체결하였고, 이에 따라 을은 계약금만 지급한 채 잔금을 지급하지 않던 중 갑 소유 주택이 원인을 알 수 없는 화재로 소실되었습니다. 이 경우 갑은 을에게 잔금을 청구할 수 있는지요? \n 갑과 을은 갑 소유의 주택에 대한 매매계약을 체결하였고, 이에 따라 을은 계약금만 지급한 채 잔금을 지급하지 않던 중 갑 소유 주택이 원인을 알 수 없는 화재로 소실되었습니다. 이 경우 갑은 을에게 잔금을 청구할 수 있는지요? \n 갑과 을은 갑 소유의 주택에 대한 매매계약을 체결하였고, 이에 따라 을은 계약금만 지급한 채 잔금을 지급하지 않던 중 갑 소유 주택이 원인을 알 수 없는 화재로 소실되었습니다. 이 경우 갑은 을에게 잔금을 청구할 수 있는지요? \n 갑과 을은 갑 소유의 주택에 대한 매매계약을 체결하였고, 이에 따라 을은 계약금만 지급한 채 잔금을 지급하지 않던 중 갑 소유 주택이 원인을 알 수 없는 화재로 소실되었습니다. 이 경우 갑은 을에게 잔금을 청구할 수 있는지요? \n 갑과 을은 갑 소유의 주택에 대한 매매계약을 체결하였고, 이에 따라 을은 계약금만 지급한 채 잔금을 지급하지 않던 중 갑 소유 주택이 원인을 알 수 없는 화재로 소실되었습니다. 이 경우 갑은 을에게 잔금을 청구할 수 있는지요?\n갑과 을은 갑 소유의 주택에 대한 매매계약을 체결하였고, 이에 따라 을은 계약금만 지급한 채 잔금을 지급하지 않던 중 갑 소유 주택이 원인을 알 수 없는 화재로 소실되었습니다. 이 경우 갑은 을에게 잔금을 청구할 수 있는지요? \n 갑과 을은 갑 소유의 주택에 대한 매매계약을 체결하였고, 이에 따라 을은 계약금만 지급한 채 잔금을 지급하지 않던 중 갑 소유 주택이 원인을 알 수 없는 화재로 소실되었습니다. 이 경우 갑은 을에게 잔금을 청구할 수 있는지요? \n 갑과 을은 갑 소유의 주택에 대한 매매계약을 체결하였고, 이에 따라 을은 계약금만 지급한 채 잔금을 지급하지 않던 중 갑 소유 주택이 원인을 알 수 없는 화재로 소실되었습니다. 이 경우 갑은 을에게 잔금을 청구할 수 있는지요? \n 갑과 을은 갑 소유의 주택에 대한 매매계약을 체결하였고, 이에 따라 을은 계약금만 지급한 채 잔금을 지급하지 않던 중 갑 소유 주택이 원인을 알 수 없는 화재로 소실되었습니다. 이 경우 갑은 을에게 잔금을 청구할 수 있는지요? \n 갑과 을은 갑 소유의 주택에 대한 매매계약을 체결하였고, 이에 따라 을은 계약금만 지급한 채 잔금을 지급하지 않던 중 갑 소유 주택이 원인을 알 수 없는 화재로 소실되었습니다. 이 경우 갑은 을에게 잔금을 청구할 수 있는지요? \n 갑과 을은 갑 소유의 주택에 대한 매매계약을 체결하였고, 이에 따라 을은 계약금만 지급한 채 잔금을 지급하지 않던 중 갑 소유 주택이 원인을 알 수 없는 화재로 소실되었습니다. 이 경우 갑은 을에게 잔금을 청구할 수 있는지요?")
+                            Text(mission.body)
                                 .font(.body)
                                 .lineSpacing(6)
                                 .multilineTextAlignment(.leading)
@@ -106,8 +90,3 @@ struct StudyMissionView : View {
     }
 }
 
-
-
-#Preview {
-    StudyMissionView()
-}
