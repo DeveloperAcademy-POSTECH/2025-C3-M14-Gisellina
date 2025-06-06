@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ExerciseMissionView: View {
+    let missions: [ExerciseMissionDetail]
     
     var safeAreaTop: CGFloat {
             UIApplication.shared.connectedScenes
@@ -164,5 +165,5 @@ struct ExerciseMissionView: View {
 }
 
 #Preview {
-    ExerciseMissionView()
+    ExerciseMissionView(missions: [])
 }

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MainView: View {
     @EnvironmentObject var router: Router
-    @StateObject private var viewModel = MainViewModel()
+    @StateObject private var viewModel = MissionViewModel()
     
     @State var progressValue: CGFloat = 0.8
     @State var vacation = 5
@@ -30,10 +30,6 @@ struct MainView: View {
                             .frame(width: 40)
                             .onTapGesture {
                                 router.push(.missionList)
-                                Task {
-                                    await viewModel.addUser(name: "Jamin", exp: 100, vacation: 5)
-                                    await viewModel.fetchUsers()
-                                }
                             }
                     }
                     
@@ -63,12 +59,23 @@ struct MainView: View {
                     
                     LazyVGrid(columns: [GridItem(.flexible(), spacing: 15), GridItem(.flexible())]) {
                         MainButton(type: .study, action: {
-                            router.push(.studyMission)
+                            Task {
+                                await viewModel.loadStudyMission()
+                                if let mission = viewModel.studyMission {
+                                    router.push(.studyMission(mission))
+                                }
+                            }
                         })
                         .frame(height: 175)
                         
                         MainButton(type: .exercise, action: {
-                            router.push(.exerciseMission)
+                            Task {
+                                await viewModel.loadExerciseMissions()
+                                
+                                if let missions = viewModel.exerciseMissions {
+                                    router.push(.exerciseMission(missions))
+                                }
+                            }
                         })
                         .frame(height: 175)
                     }
@@ -81,10 +88,10 @@ struct MainView: View {
             .background(.c3MainBackground)
             .navigationDestination(for: AppRoute.self) { route in
                 switch route {
-                case .studyMission:
-                    StudyMissionView()
-                case .exerciseMission:
-                    ExerciseMissionView()  //수정 필요
+                case .studyMission(let mission):
+                    StudyMissionView(mission: mission)
+                case .exerciseMission(let missions):
+                    ExerciseMissionView(missions: missions)  //수정 필요
                 case .missionList:
                     ExerciseMissionListCell()
                     
@@ -93,9 +100,6 @@ struct MainView: View {
         }
         .onAppear {
             print("MainView onAppear 실행됨")
-            Task {
-                await viewModel.fetchUsers()
-            }
         }
     }
     
