@@ -25,44 +25,24 @@ struct StudyMissionView : View {
             VStack(spacing: 12){
                 
                 //MARK: - Top Navigation Menu Bar(look like Noah View)
-                ZStack{
-                    HStack {
-                        Button{
-                            router.pop()
-                        } label:{
-                            Image(systemName: "chevron.left")
-                                .font(.system(size: 24, weight: .bold))
-                                .foregroundColor(.white)
-                        }
-                        Spacer()
-                    }
-                    
-                    HStack{
-                        Text("오늘의 공부")
-                            .font(.system(size: 24, weight: .bold))
-                            .foregroundStyle(.white)
-                    }
-                    
-                    HStack {
-                        Spacer()
-                        Button {
-                            showHintSheet.toggle()
-                        } label: {
-                            Image("HintIcon")
-                                .foregroundColor(.gray)
-                        }
-                        .sheet(isPresented: $showHintSheet) {
-                            HintSheetView()
-                                .presentationDetents([.height(180), .medium])
-                                .presentationCornerRadius(44)
-                                .presentationDragIndicator(.visible)
-                                .shadow(color: .black.opacity(0.2), radius: 10, x: 0, y: -5)
-                        }
-                    }
-                    
-                }
-                .frame(maxWidth: .infinity)
-                
+                CustomNavigationBar(
+                    title: "사건 검토하기",
+                    titleColor: .white,    // ← 제목 텍스트 색상
+                    leftItem: AnyView(
+                        NavigationIconButton(
+                            action: { router.pop() },
+                            iconName: "chevron.left",
+                            iconColor: .white     // ← 아이콘 색상
+                        )
+                    ),
+                    rightItem: AnyView(
+                        NavigationIconButton(
+                            action: { router.pop() },
+                            iconName: "gear",
+                            iconColor: .white  // ← 오른쪽 아이콘 색상
+                        )
+                    )
+                )
                 
                 VStack{
                     Image("MissionCharacter")
