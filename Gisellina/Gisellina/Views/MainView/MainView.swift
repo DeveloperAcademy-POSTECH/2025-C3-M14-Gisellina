@@ -93,7 +93,7 @@ struct MainView: View {
                 case .exerciseMission(let missions):
                     ExerciseMissionView(missions: missions)  //수정 필요
                 case .missionList:
-                    ExerciseMissionListCell()
+                    StudyMissionListView()
                     
                 }
             }

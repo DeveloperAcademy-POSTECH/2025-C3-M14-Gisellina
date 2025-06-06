@@ -20,31 +20,13 @@ struct StudyMissionCompleteView : View {
             Image("ExerciseMissionView_background")
                 .resizable()
                 .ignoresSafeArea(edges: .all)
-            
-            VStack(spacing: 12){
-                
-                //MARK: - Top Navigation Menu Bar(look like Noah View)
-                ZStack{
-                    Text("민법")
-                        .font(.system(size: 24, weight: .bold))
-                        .foregroundStyle(.white)
-                    
-                }
-                .frame(maxWidth: .infinity)
-                //MARK: - Main View
-                
-                Text("답변서 제출이 완료되었습니다.")
-                    .font(.title3)
-                    .foregroundColor(.white)
-                    .padding(.vertical, 20)
-                    .frame(maxWidth: .infinity, alignment: .center)
-                
-            }
-            .navigationBarBackButtonHidden(true)
-            .padding(.horizontal, 24)
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-            
             VStack {
+                //MARK: - Top Navigation Menu Bar(look like Noah View)
+                CustomNavigationBar(
+                    title: "사건 검토하기",
+                    titleColor: .white
+                )
+                //MARK: - Main View
                 ScrollView(.horizontal, showsIndicators: false) {
                     LazyHStack(alignment: .center) {
                         VStack {
@@ -115,6 +97,12 @@ struct StudyMissionCompleteView : View {
                 .scrollTargetBehavior(.viewAligned)
                 .frame(maxHeight: 480, alignment: .top)
                 
+                Text("답변서 제출이 완료되었습니다.")
+                    .font(.title3)
+                    .foregroundColor(.blue)
+                    .padding(.vertical, 20)
+                    .frame(maxWidth: .infinity, alignment: .center)
+                
                 Button {
                     router.path = NavigationPath()// <- 핵심 코드
                 } label: {
@@ -125,8 +113,9 @@ struct StudyMissionCompleteView : View {
                         .background(Color(red: 0.24, green: 0.73, blue: 1))
                         .clipShape(RoundedRectangle(cornerRadius: 20))
                 }
-                .padding(.top, 24)
+                Spacer()
             }
+            .navigationBarBackButtonHidden(true)
         }
     }
 }
