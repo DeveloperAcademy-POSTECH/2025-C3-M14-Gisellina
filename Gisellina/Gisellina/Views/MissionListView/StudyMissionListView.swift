@@ -69,6 +69,7 @@ struct StudyMissionListView: View {
             
             Spacer()
         }
+        .navigationBarBackButtonHidden(true)
         .ignoresSafeArea(edges: .bottom)
     }
 }
