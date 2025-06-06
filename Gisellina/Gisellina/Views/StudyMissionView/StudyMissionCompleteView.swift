@@ -115,6 +115,7 @@ struct StudyMissionCompleteView : View {
                 }
                 Spacer()
             }
+            .navigationBarBackButtonHidden(true)
         }
     }
 }
