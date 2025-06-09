@@ -8,16 +8,13 @@ import Foundation
 
 struct ExerciseMissionDetail: Decodable, Identifiable, Equatable, Hashable {
     let id: UUID
-    let body: String
-    let exerciseMissionMeta: ExerciseMissionMeta
+    let exerciseDetail: MissionDetail
+    
+    var body: String { exerciseDetail.body }
 
     enum CodingKeys: String, CodingKey {
         case id = "detail_id"
-        case body = "detail_body"
-        case exerciseMissionMeta = "missions"
+        case exerciseDetail = "mission_details"
     }
 }
 
-struct ExerciseMissionMeta: Decodable, Equatable, Hashable {
-    let mission_type: String
-}
