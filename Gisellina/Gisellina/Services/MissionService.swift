@@ -11,20 +11,21 @@ struct MissionService {
     // MARK: - study 미션 가져오기
     static func fetchOneStudyMission() async throws -> StudyMissionDetail {
         let client = SupabaseManager.shared.client
+        let userID = UserService.currentUserID()
 
-        let studyMissionDetails: [StudyMissionDetail] = try await client
-            .from("mission_details")
-            .select("detail_body, detail_id, missions!inner(mission_type)")
-            .eq("missions.mission_type", value: "study")
+        let studyMissionDetail: StudyMissionDetail = try await client
+            .from("map_user_mission_detail")
+            .select("""
+                detail_id,
+                mission_details!inner(*)
+            """)
+            .eq("mission_details.mission_type", value: "study")
+            .eq("user_id", value: userID)
+            .single()
             .execute()
             .value
 
-        
-        guard let randomMission = studyMissionDetails.randomElement() else {
-            throw NSError(domain: "No study missions found", code: 0)
-        }
-
-        return randomMission
+        return studyMissionDetail
     }
 
     // MARK: - 모든 exercise 미션 가져오기
@@ -32,9 +33,9 @@ struct MissionService {
         let client = SupabaseManager.shared.client
         
         let missionDetails: [ExerciseMissionDetail] = try await client
-            .from("mission_details")
-            .select("detail_body, detail_id, missions!inner(mission_type)")
-            .eq("missions.mission_type", value: "exercise")
+            .from("map_user_mission_detail")
+            .select("detail_id, mission_details!inner(*)")
+            .eq("mission_details.mission_type", value: "exercise")
             .execute()
             .value
         
@@ -42,4 +43,26 @@ struct MissionService {
     }
     
     
+    //예시 입니다!!!! 돌아가는지 확인 안했어여
+//    func fetchDoneMissions() async throws -> [MissionListExample] {
+//        let userID = UserService.currentUserID()
+//
+//        let missions: [MissionListExample] = try await SupabaseManager.shared.client
+//            .from("map_user_mission_detail")
+//            .select("""
+//                user_detail_id,
+//                user_id,
+//                created_at,
+//                mission_details!inner(*)
+//            """)
+//            .eq("is_done", value: true)
+//            .eq("user_id", value: userID)
+//            .order("created_at", ascending: false)
+//            .execute()
+//            .value
+//
+//        return missions
+//    }
+
+
 }

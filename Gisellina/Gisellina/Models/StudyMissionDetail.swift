@@ -9,16 +9,21 @@ import Foundation
 
 struct StudyMissionDetail: Decodable, Identifiable, Equatable, Hashable {
     let id: UUID
-    let body: String
-    let studyMissionMeta: StudyMissionMeta
+    let missionDetail: MissionDetail
+    
+    var body: String { missionDetail.body }
+    var law: String { missionDetail.law! }
+    var caseText: String { missionDetail.caseText! }
+
 
     enum CodingKeys: String, CodingKey {
         case id = "detail_id"
-        case body = "detail_body"
-        case studyMissionMeta = "missions"
+        case missionDetail = "mission_details"
     }
 }
 
-struct StudyMissionMeta: Decodable, Equatable, Hashable {
-    let mission_type: String
-}
+
+
+
+
+

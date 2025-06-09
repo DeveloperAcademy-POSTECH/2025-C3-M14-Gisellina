@@ -58,10 +58,11 @@ struct ExerciseMissionView: View {
                     }
                     .padding(.top, 20)
                     
+                    // TODO: - 데이터 잘 들어오나 테스트용 (컴포넌트로 빼야함)
                     HStack{
                         VStack(alignment: .leading, spacing: 4) {
-                            Text("아침을 상괘하게 시작")
-                            Text("5분 스트레칭")
+                            Text(missions[1].exerciseDetail.title!)
+                            Text(missions[1].exerciseDetail.body)
                                 .font(.system(size: 20, weight: .bold))
                         }
                         Spacer()

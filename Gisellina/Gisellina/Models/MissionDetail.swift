@@ -11,12 +11,12 @@ struct MissionDetail: Decodable, Identifiable, Equatable, Hashable {
     let id: UUID
     let body: String
     let expReward: Int
-    let law: String
-    let caseText: String
-    let missionId: UUID
-    let answer: String
-    let categoryId: UUID
-    let title: String
+    let law: String?
+    let caseText: String?
+    let mission: String
+    let answer: String?
+    let category: String
+    let title: String?
 
     enum CodingKeys: String, CodingKey {
         case id = "detail_id"
@@ -24,9 +24,9 @@ struct MissionDetail: Decodable, Identifiable, Equatable, Hashable {
         case expReward = "detail_exp_reward"
         case law = "detail_law"
         case caseText = "detail_case"
-        case missionId = "mission_id"
+        case mission = "mission_type"
         case answer = "detail_answer"
-        case categoryId = "category_id"
+        case category = "category_type"
         case title = "detail_title"
     }
 }
