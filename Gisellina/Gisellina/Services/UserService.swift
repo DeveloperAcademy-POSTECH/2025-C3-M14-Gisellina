@@ -8,31 +8,34 @@
 import Foundation
 
 struct UserService {
-    static func fetchUsers() async throws -> [User] {
+    // 앱 접속시 자동 로그인 위한 함수
+    static func registerIfNeeded() async {
         let client = SupabaseManager.shared.client
 
-        let users: [User] = try await client
-            .from("users")
-            .select("user_id, user_name, user_exp, user_vacation")
-            .execute()
-            .value
-
-        return users
+        if UserDefaults.standard.string(forKey: "user_id") == nil {
+            let uuid = UUID().uuidString
+            let name = "Test \(uuid.prefix(4))"
+            
+            do {
+                try await client
+                    .from("users").insert([
+                    "user_id": uuid,
+                    "user_name": name
+                    ]).execute()
+                UserDefaults.standard.set(uuid, forKey: "user_id")
+                print("✅ 새 유저 등록됨 → \(name) (\(uuid))")
+            } catch {
+                print("유저 등록 실패: \(error)")
+            }
+        } else {
+            print("가입된 유저: \(UserDefaults.standard.string(forKey: "user_id")!)")
+        }
     }
 
-    static func addUser(name: String, exp: Int, vacation: Int) async throws {
-        let client = SupabaseManager.shared.client
-
-        let newUser = User(
-            id: nil, // 새로 insert할 땐 id 없음
-            name: name,
-            exp: exp,
-            vacation: vacation
-        )
-
-        _ = try await client
-            .from("users")
-            .insert(newUser)
-            .execute()
+    static func currentUserID() -> String? {
+        return UserDefaults.standard.string(forKey: "user_id")
     }
+    
+    
 }
+
