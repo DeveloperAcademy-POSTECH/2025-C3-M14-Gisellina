@@ -15,7 +15,7 @@ extension Font {
 }
 
 // MARK: - 앱 내에서 사용할 커스텀 텍스트 스타일 정의
-// 이름만 봐도 용도를 알 수 있게 스타일을 정의합니다.
+// 이름만 봐도 용도를 알 수 있게 스타일을 정의함
 enum AppFontStyle {
     case display1   // 네비게이션 타이틀
     case title1     // 카드 제목
@@ -28,6 +28,7 @@ enum AppFontStyle {
     case label3     // 기록 카드 레이블(상단 설명)
     case label4     // 기록 카드 레이블(제목)
     case caption1   // 기록 페이지 카드 날짜
+    
     
     /// 스타일에 따라 사용할 폰트 이름 반환
     var name: String {

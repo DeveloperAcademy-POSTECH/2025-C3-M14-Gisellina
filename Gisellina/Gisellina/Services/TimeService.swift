@@ -3,7 +3,7 @@ import Foundation
 
 // MARK: - Supabase 응답을 받을 구조체
 struct UserMissionCreatedAt: Decodable {
-    let created_at: String
+    let created_at: String?
 }
 
 struct TimeService {
