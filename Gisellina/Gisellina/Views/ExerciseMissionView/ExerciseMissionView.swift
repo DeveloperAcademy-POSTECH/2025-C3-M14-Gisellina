@@ -7,17 +7,20 @@
 
 import SwiftUI
 
+
 struct ExerciseMissionView: View {
-    let missions: [ExerciseMissionDetail]
-
+    let client = SupabaseManager.shared.client
+    @State var missions: [ExerciseMissionDetail]
+    @State private var completedMissions: Set<UUID> = []
+    
     @EnvironmentObject var router: Router
-
+    
     
     var safeAreaTop: CGFloat {
-            UIApplication.shared.connectedScenes
-                .compactMap { ($0 as? UIWindowScene)?.windows.first?.safeAreaInsets.top }
-                .first ?? 20 // 기본값 20 (예: iPhone SE)
-        }
+        UIApplication.shared.connectedScenes
+            .compactMap { ($0 as? UIWindowScene)?.windows.first?.safeAreaInsets.top }
+            .first ?? 20 // 기본값 20 (예: iPhone SE)
+    }
     
     var body: some View {
         ZStack {
@@ -50,107 +53,47 @@ struct ExerciseMissionView: View {
                     }
                 }
                 
-                VStack(alignment: .leading, spacing: 14) {
+                VStack {
                     HStack{
                         Text("건강 관리도 필수!")
                             .font(.system(size: 20, weight: .bold))
                         Spacer()
                     }
                     .padding(.top, 20)
-                    
-                    // TODO: - 데이터 잘 들어오나 테스트용 (컴포넌트로 빼야함)
-                    HStack{
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text(missions[1].exerciseDetail.title!)
-                            Text(missions[1].exerciseDetail.body)
-                                .font(.system(size: 20, weight: .bold))
+                    ScrollView(showsIndicators: false) {
+                        ForEach(missions) { mission in
+                            let isMissionDone = mission.isDone || completedMissions.contains(mission.id)
+                            ExerciseMissionCardView(
+                                title: mission.title,
+                                mission: mission.exerciseBody,
+                                isDone: isMissionDone,
+                                onComplete: {
+                                    guard !completedMissions.contains(mission.id) else {
+                                        print("⚠️ 이미 완료된 미션이라 스킵: \(mission.id)")
+                                        return }
+
+                                        print("🔵 RPC 실행 시작: \(mission.userId) / \(mission.id)")
+                                    Task {
+                                        do {
+                                            try await client.rpc("confirm_mission", params: [
+                                                "p_user_id": mission.userId.uuidString,
+                                                "p_detail_id": mission.id.uuidString
+                                            ])
+                                            .execute()
+                                            print("✅ RPC 성공, 완료됨")
+                                            completedMissions.insert(mission.id) // UI 업데이트
+                                            self.missions = try await MissionService.fetchAllExerciseMissions()
+                                        } catch {
+                                            print("❌ 완료 실패: \(error)")
+                                        }
+                                    }
+                                }
+                                
+                            )
                         }
-                        Spacer()
-//                        Image(systemName: "checkmark.circle.fill")
-//                            .resizable()
-//                            .frame(width: 40, height: 40)
-                        Image(systemName: "checkmark.circle")
-                            .resizable()
-                            .frame(width: 40, height: 40)
-                            .foregroundStyle(.blue .opacity(0.5))
                     }
-                    .padding(24)
-//                    .background(Color.red)
-                    .cornerRadius(20)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 20)
-                            .stroke(Color.blue.opacity(0.5), lineWidth: 1)
-                    )
                     
-                    HStack{
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text("아침을 상괘하게 시작")
-                            Text("5분 스트레칭")
-                                .font(.system(size: 20, weight: .bold))
-                        }
-                        Spacer()
-//                        Image(systemName: "checkmark.circle.fill")
-//                            .resizable()
-//                            .frame(width: 40, height: 40)
-                        Image(systemName: "checkmark.circle")
-                            .resizable()
-                            .frame(width: 40, height: 40)
-                            .foregroundStyle(.blue .opacity(0.5))
-                    }
-                    .padding(24)
-//                    .background(Color.red)
-                    .cornerRadius(20)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 20)
-                            .stroke(Color.blue.opacity(0.5), lineWidth: 1)
-                    )
                     
-                    HStack{
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text("아침을 상괘하게 시작")
-                            Text("5분 스트레칭")
-                                .font(.system(size: 20, weight: .bold))
-                        }
-                        Spacer()
-//                        Image(systemName: "checkmark.circle.fill")
-//                            .resizable()
-//                            .frame(width: 40, height: 40)
-                        Image(systemName: "checkmark.circle")
-                            .resizable()
-                            .frame(width: 40, height: 40)
-                            .foregroundStyle(.blue .opacity(0.5))
-                    }
-                    .padding(24)
-//                    .background(Color.red)
-                    .cornerRadius(20)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 20)
-                            .stroke(Color.blue.opacity(0.5), lineWidth: 1)
-                    )
-                    
-                    HStack{
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text("아침을 상괘하게 시작")
-                            Text("5분 스트레칭")
-                                .font(.system(size: 20, weight: .bold))
-                        }
-                        Spacer()
-                        Image(systemName: "checkmark.circle.fill")
-                            .resizable()
-                            .frame(width: 40, height: 40)
-                            .foregroundStyle(.blue .opacity(0.8))
-//                        Image(systemName: "checkmark.circle")
-//                            .resizable()
-//                            .frame(width: 40, height: 40)
-//                            .foregroundStyle(.blue .opacity(0.5))
-                    }
-                    .padding(24)
-                    .background(Color.blue .opacity(0.1))
-                    .cornerRadius(20)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 20)
-                            .stroke(Color.blue.opacity(0.5), lineWidth: 1)
-                    )
                 }
                 .frame(maxWidth: .infinity)
                 
