@@ -5,7 +5,9 @@
 //  Created by Jamin on 6/9/25.
 //
 
-struct MissionListExample: Decodable, Identifiable {
+import Foundation
+
+struct MissionList: Decodable, Identifiable {
     let id: String
     let userId: String
     
@@ -22,5 +24,6 @@ struct MissionListExample: Decodable, Identifiable {
         case userId = "user_id"
         case createdAt = "created_at"
         case missionDetails = "mission_details"
+
     }
 }

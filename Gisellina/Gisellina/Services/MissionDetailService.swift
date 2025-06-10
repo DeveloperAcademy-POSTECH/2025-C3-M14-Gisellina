@@ -1,4 +1,11 @@
 //
+//  MissionDetailService.swift
+//  Gisellina
+//
+//  Created by Noah on 6/10/25.
+//
+
+//
 //  MissionService.swift
 //  Gisellina
 //
@@ -7,7 +14,7 @@
 
 import Foundation
 
-struct MissionService {
+struct MissionDetail {
     // MARK: - study 미션 가져오기
     static func fetchOneStudyMission() async throws -> StudyMissionDetail {
         let client = SupabaseManager.shared.client
@@ -41,28 +48,5 @@ struct MissionService {
         
         return missionDetails
     }
-    
-    
-    //예시 입니다!!!! 돌아가는지 확인 안했어여
-//    func fetchDoneMissions() async throws -> [MissionList] {
-//        let userID = UserService.currentUserID()
-//
-//        let missions: [MissionList] = try await SupabaseManager.shared.client
-//            .from("map_user_mission_detail")
-//            .select("""
-//                user_detail_id,
-//                user_id,
-//                created_at,
-//                mission_details!inner(*)
-//            """)
-//            .eq("is_done", value: true)
-//            .eq("user_id", value: userID)
-//            .order("created_at", ascending: false)
-//            .execute()
-//            .value
-//
-//        return missions
-//    }
-
 
 }
