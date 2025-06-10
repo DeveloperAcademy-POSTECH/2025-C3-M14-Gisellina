@@ -23,7 +23,7 @@ final class UserViewModel: ObservableObject {
     }
 }
 
-extension MainViewModel {
+extension UserViewModel {
     var level: Int {
         guard let exp = userDailyInfo?.user_exp else { return 1 }
         return (exp / 100) + 1
