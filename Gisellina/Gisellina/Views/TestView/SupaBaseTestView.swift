@@ -49,9 +49,9 @@ struct MissionTestDetails : Codable, Identifiable {
 
 struct MapUserMissionTestDetail: Codable, Identifiable {
     let user_detail_id: UUID
-    let created_at: String // ISO8601 형식의 문자열로 저장해야 함
+    let created_at: String? // ISO8601 형식의 문자열로 저장해야 함
     let earned_exp: Int8
-    let answer: String
+    let answer: String?
     let user_id: UUID
     let detail_id: UUID
     let is_done: Bool
@@ -69,17 +69,55 @@ struct MapUserMissionTestDetail: Codable, Identifiable {
     var id: UUID { user_detail_id } //Identifiable 프로토콜을 만족시키기 위한 **computed property.
 
 }
+//MARK: - Map user mission detail
 
+@MainActor
+class SupabaseMapUserMissionDetailViewModel: ObservableObject {
+    @Published var mapUserMissionDetails: [MapUserMissionTestDetail] = []
+    @Published var isLoading = false
+    @Published var errorMessage: String?
+    
+    
+    //모델 불러오는 함수를 만든다.
+    func loadMapUserMissionDetails() async {
+        print("[loadMapUserMissionDetails] 호출됨")
+        isLoading = true
+        errorMessage = nil
+        
+        do {
+            print("⏳ [loadMapUserMissionDetails] Supabase에서 데이터 요청 중...")
+            
+            let response = try await supabase
+                .from("map_user_mission_detail")
+                .select("*")
+                .execute()
+            print("🔍 [loadMapUserMissionDetails] Raw data: \(String(data: response.data, encoding: .utf8) ?? "nil")")
+            
+            // fetchtedDeatils 값ㅇ르 json 형태로 저장한다.
+            let fetchedDetails = try JSONDecoder().decode([MapUserMissionTestDetail].self, from: response.data)
+            print("✅ [loadMapUserMissionDetails] 데이터 수신 완료: \(fetchedDetails.count)개")
+            
+            // supabase에서 받은 값을 missionTestDetails에 저장한다.
+            self.mapUserMissionDetails = fetchedDetails
+            
+        } catch {
+            print("❌ [loadMapUserMissionDetails] 오류 발생:", error)
+            errorMessage = error.localizedDescription
+        }
+        
+        isLoading = false
+    }
+}
 
 //MARK: - Mission Detail_View Model Check
 @MainActor // 데이터는 앱 시작시 같이 불러올 수 있게 main 쓰레드에서 진행함
-class SupaBaseStudyMissionTestView: ObservableObject {
+class SupaBaseStudyMissionTestViewModel: ObservableObject {
     @Published var missionTestDetails: [MissionTestDetails] = []
     @Published var isLoading = false
     @Published var errorMessage: String?
     
     
-    // 뷰 모델 불러오는 함수를 만든다.
+    //모델 불러오는 함수를 만든다.
     func loadMissionDetails() async {
         print("[loadMissionDetils] 호출됨")
         isLoading = true
@@ -114,75 +152,70 @@ class SupaBaseStudyMissionTestView: ObservableObject {
 
 //MARK: - StudyMissionTestDetailView
 struct SupabaseTestDetailView : View {
-    
-    @StateObject private var viewModel = SupaBaseStudyMissionTestView()
-    
+    @StateObject private var studyViewModel = SupaBaseStudyMissionTestViewModel()
+    @StateObject private var mapViewModel = SupabaseMapUserMissionDetailViewModel()
+
     var body: some View {
-        NavigationStack{
-            VStack{
-                if viewModel.isLoading {
-                    ProgressView("데이터 로딩 중...")
-                        .padding()
-                } else if let errorMessage = viewModel.errorMessage {
-                    VStack(spacing: 16) {
-                        Text("오류 발생")
-                            .font(.headline)
-                            .foregroundColor(.red)
-                        
-                        Text(errorMessage)
-                            .font(.caption)
-                            .foregroundColor(.secondary)
-                            .multilineTextAlignment(.center)
-                        
-                        Button("다시 시도") {
-                            Task {
-                                await viewModel.loadMissionDetails()
-                            }
-                        }
-                        .buttonStyle(.borderedProminent)
-                    }
-                    .padding()
-                } else {
-                    List(viewModel.missionTestDetails) { detail in
-                        VStack(alignment: .leading, spacing: 6) {
-                            Text(detail.detail_title ?? "")
-                                .font(.headline)
-                            
-                            Text("문제: \(String(describing: detail.detail_case))")
-                                .font(.subheadline)
-                            
-                            Text("정답: \(String(describing: detail.detail_answer))")
-                                .font(.footnote)
-                                .foregroundColor(.green)
-                            
-                            HStack {
-                                Text("미션 ID: \(detail.mission_id.uuidString.prefix(8))")
-                                Spacer()
+        NavigationStack {
+            ScrollView {
+                LazyVStack(alignment: .leading, spacing: 20) {
+                    // MARK: - Study Mission Details
+                    if studyViewModel.isLoading {
+                        ProgressView("미션 상세 로딩 중...")
+                    } else if let errorMessage = studyViewModel.errorMessage {
+                        Text("오류: \(errorMessage)").foregroundColor(.red)
+                    } else {
+                        Text("📘 미션 상세 목록").font(.title2).bold()
+                        ForEach(studyViewModel.missionTestDetails) { detail in
+                            VStack(alignment: .leading) {
+                                Text(detail.detail_title ?? "")
+                                    .font(.headline)
+                                Text("문제: \(detail.detail_case ?? "없음")")
+                                Text("정답: \(detail.detail_answer ?? "없음")")
                                 Text("보상: \(detail.detail_exp_reward) EXP")
+                                    .font(.caption)
+                                    .foregroundColor(.secondary)
                             }
-                            .font(.caption)
-                            .foregroundColor(.secondary)
-                            
-                            Text("유형: \(String(describing: detail.mission_type)) / \(String(describing: detail.category_type))")
-                                .font(.caption2)
-                                .foregroundColor(.gray)
+                            .padding(.vertical, 4)
                         }
-                        .padding(.vertical, 4)
+                    }
+
+                    // MARK: - Map User Mission Details
+                    if mapViewModel.isLoading {
+                        ProgressView("유저 미션 상태 로딩 중...")
+                    } else if let errorMessage = mapViewModel.errorMessage {
+                        Text("오류: \(errorMessage)").foregroundColor(.red)
+                    } else {
+                        Text("🗂 유저 미션 완료 상태").font(.title2).bold()
+                        ForEach(mapViewModel.mapUserMissionDetails) { item in
+                            VStack(alignment: .leading) {
+                                Text("정답: \(item.answer)")
+                                Text("획득 경험치: \(item.earned_exp)")
+                                Text("완료 여부: \(item.is_done ? "완료" : "미완료")")
+                                Text("시간: \(item.created_at)")
+                                    .font(.caption)
+                                    .foregroundColor(.secondary)
+                            }
+                            .padding(.vertical, 4)
+                        }
                     }
                 }
+                .padding()
             }
             .navigationTitle("미션 상세 목록")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button("새로고침") {
                         Task {
-                            await viewModel.loadMissionDetails()
+                            await studyViewModel.loadMissionDetails()
+                            await mapViewModel.loadMapUserMissionDetails()
                         }
                     }
                 }
             }
             .task {
-                await viewModel.loadMissionDetails()
+                await studyViewModel.loadMissionDetails()
+                await mapViewModel.loadMapUserMissionDetails()
             }
         }
     }
