@@ -1,0 +1,40 @@
+//
+//  UserViewModel.swift
+//  Gisellina
+//
+//  Created by Jamin on 6/4/25.
+//
+
+import Foundation
+
+@MainActor
+final class UserViewModel: ObservableObject {
+    @Published var userDailyInfo: UserDailyInfo?
+    @Published var errorMessage: String?
+    
+    func loadUserDailyInfo() async {
+        do {
+            userDailyInfo = try await UserService.fetchTodaySummary()
+            print("UserDailyInfo: \(userDailyInfo!)")
+        } catch {
+            errorMessage = error.localizedDescription
+            print("UserDailyInfo 로드 실패: \(error)")
+        }
+    }
+}
+
+extension MainViewModel {
+    var level: Int {
+        guard let exp = userDailyInfo?.user_exp else { return 1 }
+        return (exp / 100) + 1
+    }
+
+    var progress: CGFloat {
+        guard let exp = userDailyInfo?.user_exp else { return 0 }
+        return CGFloat(exp % 100) / 100
+    }
+
+    var vacation: Int {
+        userDailyInfo?.user_vacation ?? 5
+    }
+}
