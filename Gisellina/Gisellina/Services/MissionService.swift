@@ -13,29 +13,33 @@ struct MissionService {
         let client = SupabaseManager.shared.client
         let userID = UserService.currentUserID()
 
-        let studyMissionDetail: StudyMissionDetail = try await client
+        let results: [StudyMissionDetail] = try await client
             .from("map_user_mission_detail")
             .select("""
                 detail_id,
                 mission_details!inner(*)
             """)
             .eq("mission_details.mission_type", value: "study")
-            .eq("user_id", value: userID)
-            .single()
-            .execute()
+            .eq("user_id", value: userID)            .execute()
             .value
 
+        guard let studyMissionDetail = results.first else {
+            throw MyError.studyMissionNotFound
+        }
+        
         return studyMissionDetail
     }
 
     // MARK: - 모든 exercise 미션 가져오기
     static func fetchAllExerciseMissions() async throws -> [ExerciseMissionDetail] {
         let client = SupabaseManager.shared.client
+        let userID = UserService.currentUserID()
         
         let missionDetails: [ExerciseMissionDetail] = try await client
             .from("map_user_mission_detail")
-            .select("detail_id, mission_details!inner(*)")
+            .select("user_id, user_detail_id, is_done, mission_details!inner(*)")
             .eq("mission_details.mission_type", value: "exercise")
+            .eq("user_id", value: userID)
             .execute()
             .value
         
