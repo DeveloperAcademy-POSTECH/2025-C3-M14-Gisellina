@@ -14,6 +14,7 @@ struct MapUserMissionDetail: Decodable, Identifiable {
     let answer: String
     let userId: UUID
     let detailId: UUID
+    let isDone: Bool
 
     enum CodingKeys: String, CodingKey {
         case id = "user_detail_id"
@@ -22,5 +23,6 @@ struct MapUserMissionDetail: Decodable, Identifiable {
         case answer
         case userId = "user_id"
         case detailId = "detail_id"
+        case isDone = "is_done"
     }
 }
