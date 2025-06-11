@@ -29,8 +29,8 @@ struct MainProgressBar: View {
                             width: geometry.size.width * value * 0.9,
                             height: 6
                         )
-                        .padding(.top, 8)
-                        .foregroundStyle(.red)
+                        .padding(.top, 7)
+                        .foregroundStyle(.c3ProgressBackground).opacity(0.2)
 
                 }
                 
