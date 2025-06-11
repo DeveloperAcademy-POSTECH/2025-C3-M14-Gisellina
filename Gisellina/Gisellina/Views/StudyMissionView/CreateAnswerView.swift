@@ -27,12 +27,12 @@ struct CreateAnswerView: View {
     //MARK: - View Start
     var body: some View {
         ZStack {
-            Image("ExerciseMissionView_background")
+            Image("StudyMissionView_background")
                 .resizable()
                 .ignoresSafeArea(edges: .all)
 
         ZStack {
-            Image("ExerciseMissionView_background")
+            Image("StudyMissionView_background")
                 .resizable()
                 .ignoresSafeArea(edges: .all)
 
@@ -53,16 +53,11 @@ struct CreateAnswerView: View {
 
                 VStack{
                     Image("MissionCharacter")
+                        .resizable()
+                        .frame(width: 168, height: 168)
+                        .padding(.bottom, 10)
                 }
                 .frame(maxWidth: .infinity)
-
-                Text("답변을 작성해 보세요")
-                    .font(.title2)
-                    .fontWeight(.semibold)
-
-                Text("관련 법령, 판례, 논리를 바탕으로 사례를 분석해 보세요.")
-                    .font(.callout)
-                    .padding(.bottom)
 
                 ZStack(alignment: .topLeading) {
                     RoundedRectangle(cornerRadius: 12)
@@ -83,7 +78,7 @@ struct CreateAnswerView: View {
                         .background(Color.clear)
                         .focused($isTextEditorFocused)
                 }
-                .frame(height: 252)
+                .frame(height: 300)
 
                 Button {
                     Task {
@@ -99,15 +94,10 @@ struct CreateAnswerView: View {
                                 .foregroundStyle(.white)
                         }
                     } else {
-                        Text("제출하기")
-                            .foregroundStyle(.white)
+                        StudyButton(studyButtonTitle: "제출하기", studyButtonColor: Color("StudyButton"), studyButtonHeight: 52)
                     }
                 }
-                .frame(width: 240, height: 50)
-                .background(
-                    Color(red: 0, green: 0.58, blue: 0.9)
-                        .opacity(isLoading || !isFormValid() ? 0.6 : 1.0)
-                )
+               
                 .clipShape(RoundedRectangle(cornerRadius: 12))
                 .disabled(isLoading || !isFormValid())
 
