@@ -1,19 +1,8 @@
 {
   "images" : [
     {
-      "filename" : "Frame 427318370.png",
-      "idiom" : "universal",
-      "scale" : "1x"
-    },
-    {
-      "filename" : "Frame 427318369.png",
-      "idiom" : "universal",
-      "scale" : "2x"
-    },
-    {
       "filename" : "Frame 427318368.png",
-      "idiom" : "universal",
-      "scale" : "3x"
+      "idiom" : "universal"
     }
   ],
   "info" : {

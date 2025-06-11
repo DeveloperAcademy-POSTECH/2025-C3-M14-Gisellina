@@ -11,7 +11,6 @@ struct ExerciseMissionView: View {
     let client = SupabaseManager.shared.client
     @State var missions: [ExerciseMissionDetail]
     @State private var completedMissions: Set<UUID> = []
-    
     @EnvironmentObject var router: Router
     
     
@@ -19,6 +18,10 @@ struct ExerciseMissionView: View {
         UIApplication.shared.connectedScenes
             .compactMap { ($0 as? UIWindowScene)?.windows.first?.safeAreaInsets.top }
             .first ?? 20 // 기본값 20 (예: iPhone SE)
+    }
+    
+    var completedCount: Int {
+        missions.filter { $0.isDone || completedMissions.contains($0.id) }.count
     }
     
     var body: some View {
@@ -40,7 +43,7 @@ struct ExerciseMissionView: View {
                     )
                 )
             
-                    Image("CharacterImage")
+                    Image("clear\(completedCount)")
                         .resizable()
                         .scaledToFit()
                         .frame(width: 200, height: 200)
@@ -53,7 +56,7 @@ struct ExerciseMissionView: View {
                                 .font(.system(size: 20, weight: .bold))
                             Spacer()
                         }
-                        .padding(.top, 20)
+//                        .padding(.top, 20)
                         ScrollView(showsIndicators: false) {
                             ForEach(missions) { mission in
                                 let isMissionDone = mission.isDone || completedMissions.contains(mission.id)
