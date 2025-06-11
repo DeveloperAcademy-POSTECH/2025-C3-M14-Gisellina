@@ -82,14 +82,8 @@ struct StudyMissionView : View {
                 NavigationLink {
                     CreateAnswerView()
                 } label: {
-                    Text("답변작성")
-                        .frame(width: 320, height: 44)
-                        .fontWeight(.bold)
-                        .foregroundColor(.white)
-                        .background(Color.blue.opacity(0.6))
-                        .clipShape(RoundedRectangle(cornerRadius: 20))
+                    StudyButton(studyButtonTitle: "답변 작성하기", studyButtonColor: Color("StudyButton"), studyButtonHeight: 52)
                 }
-                .padding(.top, 20)
                 
                 Spacer()
             }
