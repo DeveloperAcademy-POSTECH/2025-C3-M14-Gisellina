@@ -36,6 +36,20 @@ struct UserService {
         return UserDefaults.standard.string(forKey: "user_id")
     }
     
-    
+    static func fetchTodaySummary() async throws -> UserDailyInfo {
+        let client = SupabaseManager.shared.client
+        let userID = UserService.currentUserID()
+        
+        let userDailyInfo: UserDailyInfo = try await client
+            .from("users")
+            .select("user_id, user_exp, user_vacation, daily_summaries!inner(*)")
+            .eq("user_id", value: userID)
+            .single()
+            .execute()
+            .value
+                
+        return userDailyInfo
+        
+    }
 }
 
