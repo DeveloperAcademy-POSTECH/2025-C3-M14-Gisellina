@@ -47,15 +47,24 @@ struct MissionService {
         let client = SupabaseManager.shared.client
         let userID = UserService.currentUserID()
         
-        let missionDetails: [ExerciseMissionDetail] = try await client
+        let results: [ExerciseMissionDetail] = try await client
             .from("map_user_mission_detail")
-            .select("user_id, user_detail_id, is_done, mission_details!inner(*)")
+            .select("user_id, user_detail_id, is_done, created_at, mission_details!inner(*)")
             .eq("mission_details.mission_type", value: "exercise")
             .eq("user_id", value: userID)
             .execute()
             .value
         
-        return missionDetails
+        let exerciseMissions = results.filter {
+            TimeService.isSameDateAsToday(utcString: $0.createdAt)
+        }
+
+        guard !exerciseMissions.isEmpty else {
+            print("🟡 오늘 날짜와 일치하는 운동 미션 없음")
+            throw MyError.studyMissionNotFound
+        }
+        
+        return exerciseMissions
     }
     
     
