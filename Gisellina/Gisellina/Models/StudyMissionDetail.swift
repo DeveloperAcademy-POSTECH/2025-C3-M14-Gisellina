@@ -9,6 +9,7 @@ import Foundation
 
 struct StudyMissionDetail: Decodable, Identifiable, Equatable, Hashable {
     let id: UUID
+    let createdAt: String
     let missionDetail: MissionDetail
     
     var body: String { missionDetail.body }
@@ -17,7 +18,8 @@ struct StudyMissionDetail: Decodable, Identifiable, Equatable, Hashable {
 
 
     enum CodingKeys: String, CodingKey {
-        case id = "detail_id"
+        case id = "user_detail_id"
+        case createdAt = "created_at"
         case missionDetail = "mission_details"
     }
 }
