@@ -55,7 +55,7 @@ struct MissionListView: View {
             
             
                 if selectedTab == .study {
-                    StudyMissionListView()
+                    StudyMissionListView(missionList: missionViewModel.exerciseDoneMissions ?? [])
                 } else {
                     ExerciseMissionListView(missionList: missionViewModel.exerciseDoneMissions ?? [])
                 }
