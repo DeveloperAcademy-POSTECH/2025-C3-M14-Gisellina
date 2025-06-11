@@ -8,8 +8,8 @@
 import Foundation
 
 struct MissionList: Decodable, Identifiable {
-    let id: String
-    let userId: String
+    let id: UUID
+    let userId: UUID
     
     let missionDetails: MissionDetail
     
