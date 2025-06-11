@@ -10,6 +10,7 @@ import SwiftUI
 struct HeaderNoticeView: View {
     var body: some View {
         HStack {
+            
             Text("변호사님,")
                 .bold()
             
