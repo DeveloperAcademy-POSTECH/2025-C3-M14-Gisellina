@@ -60,13 +60,13 @@ struct StudyMissionListView: View {
             ScrollView{
                 VStack(spacing: 14){
                     StudyMissionListCell()
-                        .padding(.top, 20)
                     StudyMissionListCell()
                     StudyMissionListCell()
                     StudyMissionListCell()
                     StudyMissionListCell()
                     StudyMissionListCell()
                 }
+                .padding(.top, 20)
             }
             .padding(.horizontal, 20)
 //            .background(.red)

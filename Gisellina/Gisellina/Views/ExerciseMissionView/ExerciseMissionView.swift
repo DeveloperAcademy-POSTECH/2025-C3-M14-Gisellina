@@ -84,8 +84,8 @@ struct ExerciseMissionView: View {
                     
                     HStack{
                         VStack(alignment: .leading, spacing: 4) {
-                            Text("아침을 상괘하게 시작")
-                            Text("5분 스트레칭")
+                            Text(missions[2].exerciseDetail.title!)
+                            Text(missions[2].exerciseDetail.body)
                                 .font(.system(size: 20, weight: .bold))
                         }
                         Spacer()
@@ -107,8 +107,8 @@ struct ExerciseMissionView: View {
                     
                     HStack{
                         VStack(alignment: .leading, spacing: 4) {
-                            Text("아침을 상괘하게 시작")
-                            Text("5분 스트레칭")
+                            Text(missions[3].exerciseDetail.title!)
+                            Text(missions[3].exerciseDetail.body)
                                 .font(.system(size: 20, weight: .bold))
                         }
                         Spacer()
@@ -130,8 +130,8 @@ struct ExerciseMissionView: View {
                     
                     HStack{
                         VStack(alignment: .leading, spacing: 4) {
-                            Text("아침을 상괘하게 시작")
-                            Text("5분 스트레칭")
+                            Text(missions[4].exerciseDetail.title!)
+                            Text(missions[4].exerciseDetail.body)
                                 .font(.system(size: 20, weight: .bold))
                         }
                         Spacer()

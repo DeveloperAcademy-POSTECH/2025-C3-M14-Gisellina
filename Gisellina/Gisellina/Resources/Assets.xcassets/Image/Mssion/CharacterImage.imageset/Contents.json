@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "CharacterImage.png",
+      "filename" : "ExerciseCharacter.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "CharacterImage 1.png",
+      "filename" : "ExerciseCharacter 1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "CharacterImage 2.png",
+      "filename" : "ExerciseCharacter 2.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

@@ -22,7 +22,7 @@ struct StudyMissionView : View {
     var body: some View {
         
         ZStack {
-            Image("ExerciseMissionView_background")
+            Image("StudyMissionView_background")
                 .resizable()
                 .ignoresSafeArea(edges: .all)
             
@@ -41,15 +41,25 @@ struct StudyMissionView : View {
                     ),
                     rightItem: AnyView(
                         NavigationIconButton(
-                            action: { router.pop() },
+                            action: { showHintSheet.toggle() },
                             iconName: "gear",
                             iconColor: .white  // ← 오른쪽 아이콘 색상
                         )
+                        .sheet(isPresented: $showHintSheet) {
+                            HintSheetView()
+                                .presentationDetents([.height(180), .large])
+                                .presentationCornerRadius(44)
+                                .presentationDragIndicator(.visible)
+                                .background(Color.white)
+                                .shadow(color: .black.opacity(0.2), radius: 10, x: 0, y: -5)
+                        }
                     )
                 )
                 
                 VStack{
                     Image("MissionCharacter")
+                        .resizable()
+                        .scaledToFit()
                 }
                 .frame(maxWidth: .infinity)
                 //MARK: - Data 가정해져야 한다.
