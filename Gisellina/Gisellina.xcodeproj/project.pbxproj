@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		ED1202FD2DF956DB0016DE12 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = ED1202FC2DF956DB0016DE12 /* Lottie */; };
 		ED53EAF32DEEEB93003C8593 /* Auth in Frameworks */ = {isa = PBXBuildFile; productRef = ED53EAF22DEEEB93003C8593 /* Auth */; };
 		ED53EAF52DEEEB93003C8593 /* Functions in Frameworks */ = {isa = PBXBuildFile; productRef = ED53EAF42DEEEB93003C8593 /* Functions */; };
 		ED53EAF72DEEEB93003C8593 /* PostgREST in Frameworks */ = {isa = PBXBuildFile; productRef = ED53EAF62DEEEB93003C8593 /* PostgREST */; };
@@ -55,6 +56,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				ED53EAF72DEEEB93003C8593 /* PostgREST in Frameworks */,
+				ED1202FD2DF956DB0016DE12 /* Lottie in Frameworks */,
 				ED53EAF52DEEEB93003C8593 /* Functions in Frameworks */,
 				ED53EB5D2DEEEE3A003C8593 /* Supabase in Frameworks */,
 				ED53EAF32DEEEB93003C8593 /* Auth in Frameworks */,
@@ -108,6 +110,7 @@
 				ED53EAF82DEEEB93003C8593 /* Realtime */,
 				ED53EAFA2DEEEB93003C8593 /* Storage */,
 				ED53EB5C2DEEEE3A003C8593 /* Supabase */,
+				ED1202FC2DF956DB0016DE12 /* Lottie */,
 			);
 			productName = Gisellina;
 			productReference = ED87CEDA2DE44FE900397148 /* Gisellina.app */;
@@ -139,6 +142,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				ED53EAF12DEEEB93003C8593 /* XCRemoteSwiftPackageReference "supabase-swift" */,
+				ED1202FB2DF956DB0016DE12 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = ED87CEDB2DE44FE900397148 /* Products */;
@@ -299,7 +303,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = PNDHN9YB2X;
+				DEVELOPMENT_TEAM = WJKNV9KXF2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -328,7 +332,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = PNDHN9YB2X;
+				DEVELOPMENT_TEAM = WJKNV9KXF2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -374,6 +378,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		ED1202FB2DF956DB0016DE12 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.5.2;
+			};
+		};
 		ED53EAF12DEEEB93003C8593 /* XCRemoteSwiftPackageReference "supabase-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/supabase/supabase-swift";
@@ -385,6 +397,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		ED1202FC2DF956DB0016DE12 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = ED1202FB2DF956DB0016DE12 /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
+		};
 		ED53EAF22DEEEB93003C8593 /* Auth */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = ED53EAF12DEEEB93003C8593 /* XCRemoteSwiftPackageReference "supabase-swift" */;
