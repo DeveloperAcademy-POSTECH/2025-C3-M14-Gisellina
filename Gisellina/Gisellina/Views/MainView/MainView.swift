@@ -26,6 +26,19 @@ struct MainView: View {
                 VStack() {
                     HStack {
                         Spacer()
+                        VStack {
+                            Text("\(userViewModel.vacation)")
+                                .frame(width: 40, height: 40)
+                                .font(.system(size: 24, weight: .bold))
+                                .foregroundStyle(.c3ProgressForeground)
+                                .background(.white)
+                                .clipShape(RoundedRectangle(cornerRadius: 7))
+                            
+                            Text("잔여월차")
+                                .foregroundStyle(.white)
+                                .font(.system(size: 15, weight: .bold))
+                        }
+                        
                         VStack{
                             Image(.missionListIcon)
                                 .resizable()
@@ -42,13 +55,10 @@ struct MainView: View {
                     
                     HeaderNoticeView()
                     
-                    Text("보유 월차: \(userViewModel.vacation)")
-                    
-                    Image(.mainCharacterImg)
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
+                    LottieView(animationName: "Crying")
                         .frame(maxWidth: .infinity)
-                        .padding(.horizontal, 60)
+                        .background(.red)
+//                        .padding(.horizontal, 20)
                     
                     VStack {
                         MainProgressBar(value: $progressValue)
@@ -101,7 +111,6 @@ struct MainView: View {
                     ExerciseMissionView(missions: missions)  //수정 필요
                 case .missionList:
                     StudyMissionListView()
-                    
                 }
             }
         }
