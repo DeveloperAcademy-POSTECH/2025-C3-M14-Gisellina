@@ -10,17 +10,17 @@ import SwiftUI
 struct HeaderNoticeView: View {
     var body: some View {
         HStack {
-            
+            Image("announce_icon")
             Text("변호사님,")
                 .bold()
             
             Text("오늘의 업무 어쩌고")
         }
-        .foregroundStyle(.c3MainBackground)
-        .padding(.horizontal, 37)
-        .padding(.vertical, 20)
+        .foregroundStyle(.c3ProgressForeground)
+        .padding(.horizontal, 30)
+        .padding(.vertical, 15)
         .background(.white)
-        .clipShape(RoundedRectangle(cornerRadius: 20))
+        .clipShape(RoundedRectangle(cornerRadius: 60))
     }
 }
 

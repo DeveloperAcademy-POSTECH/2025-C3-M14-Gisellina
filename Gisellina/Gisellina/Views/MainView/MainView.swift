@@ -54,10 +54,10 @@ struct MainView: View {
                     }
                     
                     HeaderNoticeView()
+                        .padding(.top, 30)
                     
-                    LottieView(animationName: "Crying")
+                    LottieView(animationName: "sleeping")
                         .frame(maxWidth: .infinity)
-//                        .padding(.horizontal, 20)
                     
                     VStack {
                         
