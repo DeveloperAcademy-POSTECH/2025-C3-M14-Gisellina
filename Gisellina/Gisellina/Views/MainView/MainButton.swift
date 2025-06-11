@@ -16,7 +16,13 @@ struct MainButton: View {
         ZStack {
             RoundedRectangle(cornerRadius: 15)
                 .padding(.top, 14)
-                .foregroundStyle(.c3ProgressBackground)
+                .foregroundStyle(.c3MainButtonShadow)
+            
+            RoundedRectangle(cornerRadius: 15)
+                .padding(.top, 14)
+                .padding(.bottom, 5)
+                .foregroundStyle(.c3MainButtonForeground)
+                
             VStack(alignment: .leading) {
                 Image(iconName)
                 
@@ -29,7 +35,6 @@ struct MainButton: View {
                     
                     Text(type.description)
                         .font(.callout)
-                    
                 }
                 
                 

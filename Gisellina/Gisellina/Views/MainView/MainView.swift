@@ -11,9 +11,9 @@ struct MainView: View {
     @EnvironmentObject var router: Router
     @StateObject private var viewModel = MissionViewModel()
     @StateObject private var userViewModel = UserViewModel()
-    @State private var progressValue: CGFloat = 0
+    @State private var progressValue: CGFloat = 0.5
     @State private var startValue: CGFloat = 0
-
+    
     @State private var isLoaded = false
     
     var body: some View {
@@ -57,17 +57,24 @@ struct MainView: View {
                     
                     LottieView(animationName: "Crying")
                         .frame(maxWidth: .infinity)
-                        .background(.red)
 //                        .padding(.horizontal, 20)
                     
                     VStack {
-                        MainProgressBar(value: $progressValue)
+                        
                         HStack {
-                            Text("Lv.\(userViewModel.level)")
+                            Text(userViewModel.lawyerTitle)
+                                .font(.system(size: 14, weight: .semibold))
+                            
                             Spacer()
-                            Text("Lv.\(userViewModel.level+1)")
+                            
+                            let percentText = "\(Int(progressValue * 100))%"
+                            Text(percentText)
+                                .font(.system(size: 14, weight: .semibold))
+
                         }
                         .foregroundStyle(.c3ProgressForeground)
+                        
+                        MainProgressBar(value: $progressValue)
                     }
                     .padding(.top, 14)
                     
