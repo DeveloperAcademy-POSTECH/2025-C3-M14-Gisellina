@@ -19,17 +19,25 @@ struct MainView: View {
     var body: some View {
         NavigationStack(path: $router.path) {
             ZStack {
+                Image("MainView_background")
+                    .resizable()
+                    .ignoresSafeArea(edges: .all)
+                
                 VStack() {
                     HStack {
                         Spacer()
-                        
-                        Image(.missionListIcon)
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 40)
-                            .onTapGesture {
-                                router.push(.missionList)
-                            }
+                        VStack{
+                            Image(.missionListIcon)
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 40)
+                                .onTapGesture {
+                                    router.push(.missionList)
+                                }
+                            Text("업무내역")
+                                .foregroundStyle(.white)
+                                .font(.system(size: 15, weight: .bold))
+                        }
                     }
                     
                     HeaderNoticeView()
@@ -49,7 +57,7 @@ struct MainView: View {
                             Spacer()
                             Text("Lv.\(userViewModel.level+1)")
                         }
-                        .foregroundStyle(.c3ProgressBackground)
+                        .foregroundStyle(.c3ProgressForeground)
                     }
                     .padding(.top, 14)
                     
@@ -64,7 +72,7 @@ struct MainView: View {
                                     router.push(.studyMission(mission))
                                 }
                             }
-                        })
+                        }, iconName: "main_pencil_icon")
                         .frame(height: 175)
                         
                         MainButton(type: .exercise, action: {
@@ -75,7 +83,7 @@ struct MainView: View {
                                     router.push(.exerciseMission(missions))
                                 }
                             }
-                        })
+                        }, iconName: "main_health_icon")
                         .frame(height: 175)
                     }
                     .padding(.top, 30)
@@ -84,7 +92,7 @@ struct MainView: View {
                 .padding(24)
                 
             }
-            .background(.c3MainBackground)
+//            .background(.c3MainBackground)
             .navigationDestination(for: AppRoute.self) { route in
                 switch route {
                 case .studyMission(let mission):

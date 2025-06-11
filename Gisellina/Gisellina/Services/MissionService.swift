@@ -48,10 +48,10 @@ struct MissionService {
     
     
     //예시 입니다!!!! 돌아가는지 확인 안했어여
-//    func fetchDoneMissions() async throws -> [MissionListExample] {
+//    func fetchDoneMissions() async throws -> [MissionList] {
 //        let userID = UserService.currentUserID()
 //
-//        let missions: [MissionListExample] = try await SupabaseManager.shared.client
+//        let missions: [MissionList] = try await SupabaseManager.shared.client
 //            .from("map_user_mission_detail")
 //            .select("""
 //                user_detail_id,

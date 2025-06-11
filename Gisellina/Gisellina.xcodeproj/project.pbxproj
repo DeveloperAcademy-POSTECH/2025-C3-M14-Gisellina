@@ -19,9 +19,31 @@
 		ED87CEDA2DE44FE900397148 /* Gisellina.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Gisellina.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		4F822ECA2DF855B6001F8443 /* Exceptions for "Gisellina" folder in "Gisellina" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+				"Resources/Font/Pretendard-Black.otf",
+				"Resources/Font/Pretendard-Bold.otf",
+				"Resources/Font/Pretendard-ExtraBold.otf",
+				"Resources/Font/Pretendard-ExtraLight.otf",
+				"Resources/Font/Pretendard-Light.otf",
+				"Resources/Font/Pretendard-Medium.otf",
+				"Resources/Font/Pretendard-Regular.otf",
+				"Resources/Font/Pretendard-SemiBold.otf",
+				"Resources/Font/Pretendard-Thin.otf",
+			);
+			target = ED87CED92DE44FE900397148 /* Gisellina */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		ED87CEDC2DE44FE900397148 /* Gisellina */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				4F822ECA2DF855B6001F8443 /* Exceptions for "Gisellina" folder in "Gisellina" target */,
+			);
 			path = Gisellina;
 			sourceTree = "<group>";
 		};
@@ -277,7 +299,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = WJKNV9KXF2;
+				DEVELOPMENT_TEAM = PNDHN9YB2X;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -306,7 +328,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = WJKNV9KXF2;
+				DEVELOPMENT_TEAM = PNDHN9YB2X;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;

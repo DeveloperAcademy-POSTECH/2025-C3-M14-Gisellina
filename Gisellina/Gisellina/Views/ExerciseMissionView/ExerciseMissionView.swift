@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-
 struct ExerciseMissionView: View {
     let client = SupabaseManager.shared.client
     @State var missions: [ExerciseMissionDetail]
@@ -40,71 +39,64 @@ struct ExerciseMissionView: View {
                         )
                     )
                 )
-                
-                HStack(alignment: .top) {
+            
                     Image("CharacterImage")
                         .resizable()
                         .scaledToFit()
-                    ZStack{
-                        Image("Talking")
-                        Text("오늘도 한단계 성장했어요!")
-                            .font(.system(size: 18, weight: .bold))
-                            .foregroundStyle(.blue)
-                    }
-                }
+                        .frame(width: 200, height: 200)
                 
-                VStack {
-                    HStack{
-                        Text("건강 관리도 필수!")
-                            .font(.system(size: 20, weight: .bold))
-                        Spacer()
-                    }
-                    .padding(.top, 20)
-                    ScrollView(showsIndicators: false) {
-                        ForEach(missions) { mission in
-                            let isMissionDone = mission.isDone || completedMissions.contains(mission.id)
-                            ExerciseMissionCardView(
-                                title: mission.title,
-                                mission: mission.exerciseBody,
-                                isDone: isMissionDone,
-                                onComplete: {
-                                    guard !completedMissions.contains(mission.id) else {
-                                        print("⚠️ 이미 완료된 미션이라 스킵: \(mission.id)")
-                                        return }
-
+                
+                VStack(alignment: .leading, spacing: 14) {
+                    VStack{
+                        HStack{
+                            Text("건강 관리도 필수!")
+                                .font(.system(size: 20, weight: .bold))
+                            Spacer()
+                        }
+                        .padding(.top, 20)
+                        ScrollView(showsIndicators: false) {
+                            ForEach(missions) { mission in
+                                let isMissionDone = mission.isDone || completedMissions.contains(mission.id)
+                                ExerciseMissionCardView(
+                                    title: mission.title,
+                                    mission: mission.exerciseBody,
+                                    isDone: isMissionDone,
+                                    onComplete: {
+                                        guard !completedMissions.contains(mission.id) else {
+                                            print("⚠️ 이미 완료된 미션이라 스킵: \(mission.id)")
+                                            return }
+                                        
                                         print("🔵 RPC 실행 시작: \(mission.userId) / \(mission.id)")
-                                    Task {
-                                        do {
-                                            try await client.rpc("confirm_mission", params: [
-                                                "p_user_id": mission.userId.uuidString,
-                                                "p_detail_id": mission.id.uuidString
-                                            ])
-                                            .execute()
-                                            print("✅ RPC 성공, 완료됨")
-                                            completedMissions.insert(mission.id) // UI 업데이트
-                                            self.missions = try await MissionService.fetchAllExerciseMissions()
-                                        } catch {
-                                            print("❌ 완료 실패: \(error)")
+                                        Task {
+                                            do {
+                                                try await client.rpc("confirm_mission", params: [
+                                                    "p_user_id": mission.userId.uuidString,
+                                                    "p_detail_id": mission.id.uuidString
+                                                ])
+                                                .execute()
+                                                print("✅ RPC 성공, 완료됨")
+                                                completedMissions.insert(mission.id) // UI 업데이트
+                                                self.missions = try await MissionService.fetchAllExerciseMissions()
+                                            } catch {
+                                                print("❌ 완료 실패: \(error)")
+                                            }
                                         }
                                     }
-                                }
-                                
-                            )
+                                    
+                                )
+                            }
                         }
                     }
+                    .frame(maxWidth: .infinity)
                     
-                    
+                    Spacer()
                 }
-                .frame(maxWidth: .infinity)
-                
-                Spacer()
+                .padding(.horizontal, 24)
             }
-            .padding(.horizontal, 24)
+            .navigationBarBackButtonHidden(true)
         }
-        .navigationBarBackButtonHidden(true)
     }
 }
-
-#Preview {
-    ExerciseMissionView(missions: [])
-}
+    //    #Preview {
+    //        ExerciseMissionView(missions: [])
+    //    }

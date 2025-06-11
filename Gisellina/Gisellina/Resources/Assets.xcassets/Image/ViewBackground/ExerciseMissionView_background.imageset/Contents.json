@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "ExerciseMissionView_background.png",
+      "filename" : "4).png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "ExerciseMissionView_background 1.png",
+      "filename" : "4) 1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "ExerciseMissionView_background 2.png",
+      "filename" : "4) 2.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

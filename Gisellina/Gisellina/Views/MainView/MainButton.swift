@@ -10,14 +10,15 @@ import SwiftUI
 struct MainButton: View {
     let type: MainButtonType
     let action: () -> Void
+    let iconName: String
     
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 15)
                 .padding(.top, 14)
-                .foregroundStyle(.white)
+                .foregroundStyle(.c3ProgressBackground)
             VStack(alignment: .leading) {
-                Image(.mainPencilIcon)
+                Image(iconName)
                 
                 Spacer()
                 
@@ -69,6 +70,6 @@ enum MainButtonType {
     }
 }
 
-#Preview {
-    MainButton(type: .exercise, action: {})
-}
+//#Preview {
+//    MainButton(type: .exercise, action: {})
+//}
