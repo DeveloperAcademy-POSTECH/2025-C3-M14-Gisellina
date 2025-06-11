@@ -24,7 +24,7 @@ struct StudyMissionCompleteView : View {
 
         // 로그 출력
          ZStack {
-            Image("ExerciseMissionView_background")
+            Image("StudyMissionView_background")
                 .resizable()
                 .ignoresSafeArea(edges: .all)
             VStack {
@@ -33,6 +33,12 @@ struct StudyMissionCompleteView : View {
                     title: "사건 검토하기",
                     titleColor: .white
                 )
+                
+                Text("답변서 제출이 완료되었습니다.")
+                    .font(.title3)
+                    .foregroundColor(.white)
+                    .padding(.vertical, 20)
+                    .frame(maxWidth: .infinity, alignment: .center)
                 //MARK: - Main View
                 ScrollView(.horizontal, showsIndicators: false) {
                     LazyHStack(alignment: .center) {
@@ -99,22 +105,14 @@ struct StudyMissionCompleteView : View {
                 .scrollTargetBehavior(.viewAligned)
                 .frame(maxHeight: 480, alignment: .top)
                 
-                Text("답변서 제출이 완료되었습니다.")
-                    .font(.title3)
-                    .foregroundColor(.blue)
-                    .padding(.vertical, 20)
-                    .frame(maxWidth: .infinity, alignment: .center)
+                
                 
                 Button {
                     router.path = NavigationPath()// <- 핵심 코드
                 } label: {
-                    Text("메인으로")
-                        .frame(width: 320, height: 44)
-                        .fontWeight(.bold)
-                        .foregroundColor(.white)
-                        .background(Color(red: 0.24, green: 0.73, blue: 1))
-                        .clipShape(RoundedRectangle(cornerRadius: 20))
+                    StudyButton(studyButtonTitle: "메인으로 가기", studyButtonColor: Color("StudyButton"), studyButtonHeight: 52)
                 }
+                .padding(.horizontal, 24)
                 Spacer()
             }
             .navigationBarBackButtonHidden(true)
