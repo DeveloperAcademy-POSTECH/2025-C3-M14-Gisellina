@@ -174,47 +174,47 @@ struct TimeService {
         return isSame
     }
 }
-
-// MARK: - SwiftUI 뷰
-struct CreatedAtView: View {
-    @State private var utcTime: String = ""
-    @State private var kstTime: String = ""
-    @State private var errorMessage: String?
-
-    var body: some View {
-        VStack(spacing: 16) {
-            if errorMessage == nil {
-                Text("Supabase 시간 (UTC):")
-                Text(utcTime).bold()
-
-                Text("한국 시간 (KST):")
-                Text(kstTime).bold()
-            } else if let errorMessage = errorMessage {
-                Text("오류: \(errorMessage)")
-                    .foregroundColor(.red)
-                    .padding()
-            }
-        }
-        .padding()
-        // 3. .task 블록에서 일관된 에러 처리
-        .task {
-            do {
-                let fetchedUtcTime = try await TimeService.fetchLatestCreatedAt()
-                self.utcTime = fetchedUtcTime
-                self.kstTime = try TimeService.convertUTCToKST(from: fetchedUtcTime) ?? ""
-
-                // Log the comparison results after fetching and converting
-                _ = TimeService.isSameDateAsToday(utcString: fetchedUtcTime)
-                _ = TimeService.compareDateWithKST(kstString: self.kstTime)
-
-            } catch {
-                // LocalizedError 프로토콜을 따르므로 errorDescription이 자동으로 사용됨
-                self.errorMessage = error.localizedDescription
-            }
-        }
-    }
-}
-
-#Preview {
-    CreatedAtView()
-}
+//
+//// MARK: - SwiftUI 뷰
+//struct CreatedAtView: View {
+//    @State private var utcTime: String = ""
+//    @State private var kstTime: String = ""
+//    @State private var errorMessage: String?
+//
+//    var body: some View {
+//        VStack(spacing: 16) {
+//            if errorMessage == nil {
+//                Text("Supabase 시간 (UTC):")
+//                Text(utcTime).bold()
+//
+//                Text("한국 시간 (KST):")
+//                Text(kstTime).bold()
+//            } else if let errorMessage = errorMessage {
+//                Text("오류: \(errorMessage)")
+//                    .foregroundColor(.red)
+//                    .padding()
+//            }
+//        }
+//        .padding()
+//        // 3. .task 블록에서 일관된 에러 처리
+//        .task {
+//            do {
+//                let fetchedUtcTime = try await TimeService.fetchLatestCreatedAt()
+//                self.utcTime = fetchedUtcTime
+//                self.kstTime = try TimeService.convertUTCToKST(from: fetchedUtcTime) ?? ""
+//
+//                // Log the comparison results after fetching and converting
+//                _ = TimeService.isSameDateAsToday(utcString: fetchedUtcTime)
+//                _ = TimeService.compareDateWithKST(kstString: self.kstTime)
+//
+//            } catch {
+//                // LocalizedError 프로토콜을 따르므로 errorDescription이 자동으로 사용됨
+//                self.errorMessage = error.localizedDescription
+//            }
+//        }
+//    }
+//}
+//
+//#Preview {
+//    CreatedAtView()
+//}
