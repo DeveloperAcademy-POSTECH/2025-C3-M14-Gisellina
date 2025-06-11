@@ -16,17 +16,29 @@ struct MissionService {
         let results: [StudyMissionDetail] = try await client
             .from("map_user_mission_detail")
             .select("""
-                detail_id,
+                user_detail_id,
+                created_at,
                 mission_details!inner(*)
             """)
             .eq("mission_details.mission_type", value: "study")
-            .eq("user_id", value: userID)            .execute()
+            .eq("user_id", value: userID)
+            .execute()
             .value
 
-        guard let studyMissionDetail = results.first else {
+        print("🟢 [fetchOneStudyMission] 가져온 미션 수: \(results.count)")
+        for mission in results {
+            print("📅 [fetchOneStudyMission] 미션 createdAt: \(mission.createdAt)")
+        }
+
+        // 오늘 날짜 기준 필터링
+        guard let studyMissionDetail = results.first(where: {
+            TimeService.isSameDateAsToday(utcString: $0.createdAt)
+        }) else {
+            print("❌ [fetchOneStudyMission] 오늘 날짜와 일치하는 미션 없음")
             throw MyError.studyMissionNotFound
         }
-        
+
+        print("✅ [fetchOneStudyMission] 오늘 날짜 미션 발견: \(studyMissionDetail)")
         return studyMissionDetail
     }
 
