@@ -12,6 +12,7 @@ final class MissionViewModel: ObservableObject {
     @Published var studyMission: StudyMissionDetail?
     @Published var exerciseMissions: [ExerciseMissionDetail]?
     @Published var exerciseDoneMissions: [MissionList]?
+    @Published var studyDoneMissions: [MissionList]?
     @Published var errorMessage: String?
     
     
@@ -39,6 +40,15 @@ final class MissionViewModel: ObservableObject {
     func loadDoneExerciseMissions() async {
         do {
             exerciseDoneMissions = try await MissionListService.fetchDoneMissions()
+        } catch {
+            errorMessage = error.localizedDescription
+            print("❌ exerciseDone 미션 로드 실패: \(error)")
+        }
+    }
+    
+    func loadDoneStudyMissions() async {
+        do {
+            studyDoneMissions = try await MissionListService.fetchDoneMissions()
         } catch {
             errorMessage = error.localizedDescription
             print("❌ exerciseDone 미션 로드 실패: \(error)")
