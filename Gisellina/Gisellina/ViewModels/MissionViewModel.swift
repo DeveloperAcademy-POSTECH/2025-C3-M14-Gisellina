@@ -39,7 +39,8 @@ final class MissionViewModel: ObservableObject {
     
     func loadDoneExerciseMissions() async {
         do {
-            exerciseDoneMissions = try await MissionListService.fetchDoneMissions()
+            let all = try await MissionListService.fetchDoneMissions()
+            self.exerciseDoneMissions = all.filter { $0.mission == "exercise" }
         } catch {
             errorMessage = error.localizedDescription
             print("❌ exerciseDone 미션 로드 실패: \(error)")
