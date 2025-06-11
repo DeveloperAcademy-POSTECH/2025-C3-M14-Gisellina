@@ -16,7 +16,7 @@ import Foundation
 
 struct MissionListService {
     // MARK: - 미션리스트에 추가하기
-    func fetchDoneMissions() async throws -> [MissionList] {
+    static func fetchDoneMissions() async throws -> [MissionList] {
             let userID = UserService.currentUserID()
     
             let missions: [MissionList] = try await SupabaseManager.shared.client

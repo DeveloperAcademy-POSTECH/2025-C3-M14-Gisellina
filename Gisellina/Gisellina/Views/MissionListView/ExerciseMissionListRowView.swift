@@ -1,7 +1,10 @@
 import SwiftUI
 
+//@EnvironmentObject let missionDetail : MissionList
 struct ExerciseMissionListRowView: View {
-    // MARK: - Properties
+    
+
+//     MARK: - Properties
     let characterImage: String
     let missionDetail: MissionList
     

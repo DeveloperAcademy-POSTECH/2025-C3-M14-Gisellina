@@ -11,70 +11,15 @@ struct StudyMissionListView: View {
     @EnvironmentObject var router: Router
     
     var body: some View {
-        VStack(spacing: 0){
-            CustomNavigationBar(
-                title: "컨디션 점검",
-                titleColor: .white,    // ← 제목 텍스트 색상
-                leftItem: AnyView(
-                    NavigationIconButton(
-                        action: { router.pop() },
-                        iconName: "chevron.left",
-                        iconColor: .black     // ← 아이콘 색상
-                    )
-                )
-            )
-            .padding(.horizontal, 24)
-            
-            VStack(spacing: 0){
-                HStack(spacing: 0){
-                    VStack{
-                        Text("사전 검토하기")
-                            .font(.system(size: 20, weight: .bold))
-                            .foregroundStyle(.blue)
-                            .opacity(1)
-                    }
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 8)
-//                    .background(.blue)
-                    VStack{
-                        Text("사전 검토하기")
-                            .font(.system(size: 20, weight: .bold))
-                            .foregroundStyle(.blue)
-                            .opacity(0.5)
-                    }
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 8)
-//                    .background(.red)
-                }
-                .padding(.top, 12)
-                HStack(spacing: 0){
-                    VStack{}
-                        .frame(maxWidth: .infinity, minHeight: 4)
-                        .background(Color.blue.opacity(1))
-                    VStack{}
-                        .frame(maxWidth: .infinity, minHeight: 4)
-                        .background(Color.blue.opacity(0.4))
+        ScrollView {
+            VStack(spacing: 14) {
+                ForEach(0..<6) { _ in
+                    StudyMissionListCell()
                 }
             }
-            
-            ScrollView{
-                VStack(spacing: 14){
-                    StudyMissionListCell()
-                    StudyMissionListCell()
-                    StudyMissionListCell()
-                    StudyMissionListCell()
-                    StudyMissionListCell()
-                    StudyMissionListCell()
-                }
-                .padding(.top, 20)
-            }
-            .padding(.horizontal, 20)
-//            .background(.red)
-            
-            Spacer()
+            .padding(.top, 20)
         }
-        .navigationBarBackButtonHidden(true)
-        .ignoresSafeArea(edges: .bottom)
+        .padding(.horizontal, 20)
     }
 }
 
