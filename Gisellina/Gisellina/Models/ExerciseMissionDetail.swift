@@ -11,6 +11,7 @@ struct ExerciseMissionDetail: Decodable, Identifiable, Equatable, Hashable {
     let userId: UUID
     let exerciseDetail: MissionDetail
     let isDone: Bool
+    let createdAt: String
     
     
     var exerciseBody: String { exerciseDetail.body }
@@ -21,6 +22,7 @@ struct ExerciseMissionDetail: Decodable, Identifiable, Equatable, Hashable {
         case userId = "user_id"
         case exerciseDetail = "mission_details"
         case isDone = "is_done"
+        case createdAt = "created_at"
     }
 }
 
