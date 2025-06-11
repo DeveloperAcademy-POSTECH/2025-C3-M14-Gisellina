@@ -37,4 +37,11 @@ extension UserViewModel {
     var vacation: Int {
         userDailyInfo?.user_vacation ?? 5
     }
+
+}
+
+enum DailyMissionStatus: String {
+    case allDone = "축하해요. 업무를 모두 마쳤어요!"
+    case partial = "조금 더 힘내봐요!"
+    case notStarted = "오늘의 업무를 확인해보세요!"
 }
