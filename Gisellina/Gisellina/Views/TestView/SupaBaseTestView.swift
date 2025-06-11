@@ -189,10 +189,10 @@ struct SupabaseTestDetailView : View {
                         Text("🗂 유저 미션 완료 상태").font(.title2).bold()
                         ForEach(mapViewModel.mapUserMissionDetails) { item in
                             VStack(alignment: .leading) {
-                                Text("정답: \(item.answer)")
+                                Text("정답: \(String(describing: item.answer))")
                                 Text("획득 경험치: \(item.earned_exp)")
                                 Text("완료 여부: \(item.is_done ? "완료" : "미완료")")
-                                Text("시간: \(item.created_at)")
+                                Text("시간: \(String(describing: item.created_at))")
                                     .font(.caption)
                                     .foregroundColor(.secondary)
                             }

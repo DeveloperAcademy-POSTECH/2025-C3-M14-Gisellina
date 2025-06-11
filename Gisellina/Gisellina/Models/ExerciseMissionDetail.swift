@@ -8,13 +8,19 @@ import Foundation
 
 struct ExerciseMissionDetail: Decodable, Identifiable, Equatable, Hashable {
     let id: UUID
+    let userId: UUID
     let exerciseDetail: MissionDetail
+    let isDone: Bool
     
-    var body: String { exerciseDetail.body }
+    
+    var exerciseBody: String { exerciseDetail.body }
+    var title: String { exerciseDetail.title ?? "제목 없음" }
 
     enum CodingKeys: String, CodingKey {
-        case id = "detail_id"
+        case id = "user_detail_id"
+        case userId = "user_id"
         case exerciseDetail = "mission_details"
+        case isDone = "is_done"
     }
 }
 

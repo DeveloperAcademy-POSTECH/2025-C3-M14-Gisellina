@@ -10,11 +10,10 @@ import SwiftUI
 struct MainView: View {
     @EnvironmentObject var router: Router
     @StateObject private var viewModel = MissionViewModel()
-    
-    @State var progressValue: CGFloat = 0.8
-    @State var vacation = 5
-    @State var level = 1
-    
+    @StateObject private var userViewModel = UserViewModel()
+    @State private var progressValue: CGFloat = 0
+    @State private var startValue: CGFloat = 0
+
     @State private var isLoaded = false
     
     var body: some View {
@@ -43,7 +42,7 @@ struct MainView: View {
                     
                     HeaderNoticeView()
                     
-                    Text("보유 월차: \(vacation)")
+                    Text("보유 월차: \(userViewModel.vacation)")
                     
                     Image(.mainCharacterImg)
                         .resizable()
@@ -54,9 +53,9 @@ struct MainView: View {
                     VStack {
                         MainProgressBar(value: $progressValue)
                         HStack {
-                            Text("Lv.\(level)")
+                            Text("Lv.\(userViewModel.level)")
                             Spacer()
-                            Text("Lv.\(level+1)")
+                            Text("Lv.\(userViewModel.level+1)")
                         }
                         .foregroundStyle(.c3ProgressForeground)
                     }
@@ -108,7 +107,30 @@ struct MainView: View {
         }
         .onAppear {
             print("MainView onAppear 실행됨")
+            
+            Task {
+                await userViewModel.loadUserDailyInfo()
+                withAnimation(.interpolatingSpring(stiffness: 170, damping: 15)) {
+                           progressValue = userViewModel.progress
+                       }
+                startValue = userViewModel.progress
+            }
+
         }
+        .onChange(of: router.path) {
+            // 루트로 돌아왔을 때만 새로 불러오기
+            if router.path.isEmpty {
+                Task {
+                    await userViewModel.loadUserDailyInfo()
+                    
+                    progressValue = startValue
+                    withAnimation(.interpolatingSpring(stiffness: 170, damping: 15)) {
+                               progressValue = userViewModel.progress
+                           }
+                }
+            }
+        }
+
     }
     
 }
