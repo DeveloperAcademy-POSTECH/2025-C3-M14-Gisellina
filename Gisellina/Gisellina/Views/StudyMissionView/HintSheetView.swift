@@ -28,10 +28,10 @@ struct HintSheetView: View {
                     Text("대법원 2006. 9. 22. 선고 2006다24049 판결")
                         .foregroundColor(.gray)
                 }
-                .padding(.top, 10)
+                
             }
         }
-        .padding(.horizontal, 24)
+        .padding(24)
         .frame(maxWidth: .infinity, maxHeight:.infinity, alignment: .topLeading)
         .scrollIndicators(.hidden)
         .background(.white)
