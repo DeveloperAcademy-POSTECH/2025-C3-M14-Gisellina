@@ -20,12 +20,12 @@ struct MissionListView: View {
     var body: some View {
         VStack(spacing: 0){
             CustomNavigationBar(
-                title: "컨디션 점검",
-                titleColor: .white,    // ← 제목 텍스트 색상
+                title: "업무 내역",
+                titleColor: .black,    // ← 제목 텍스트 색상
                 leftItem: AnyView(
                     NavigationIconButton(
                         action: { router.pop() },
-                        iconName: "chevron.left",
+                        iconName: "chevron_black",
                         iconColor: .black     // ← 아이콘 색상
                     )
                 )
