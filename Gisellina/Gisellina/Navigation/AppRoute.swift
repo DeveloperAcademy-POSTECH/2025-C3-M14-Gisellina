@@ -11,4 +11,8 @@ enum AppRoute: Hashable {
     case missionList
     case studyMission(StudyMissionDetail)
     case exerciseMission([ExerciseMissionDetail])
+    case studyMissionWrite(StudyMissionDetail)
+    case studyMissionComplete(mission: StudyMissionDetail, userAnswer: String)
+    
+
 }

@@ -11,26 +11,48 @@ import Lottie
 struct LottieView: UIViewRepresentable {
     var animationName: String
     var loopMode: LottieLoopMode = .loop
-    
-    func makeUIView(context: Context) -> some UIView {
-        let view = UIView(frame: .zero)
 
-        let animationView = LottieAnimationView(name: animationName)
-        animationView.loopMode = loopMode
-        animationView.play()
+    class Coordinator {
+        let animationView = LottieAnimationView()
+        var currentAnimationName: String?
+    }
+
+    func makeCoordinator() -> Coordinator {
+        Coordinator()
+    }
+
+    func makeUIView(context: Context) -> UIView {
+        let view = UIView()
+        let animationView = context.coordinator.animationView
 
         animationView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(animationView)
+        animationView.contentMode = .scaleAspectFit
+        animationView.loopMode = loopMode
 
+        view.addSubview(animationView)
         NSLayoutConstraint.activate([
-            animationView.widthAnchor.constraint(equalTo: view.widthAnchor),
-            animationView.heightAnchor.constraint(equalTo: view.heightAnchor)
+            animationView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            animationView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            animationView.topAnchor.constraint(equalTo: view.topAnchor),
+            animationView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+
+        // 초기 설정
+        context.coordinator.currentAnimationName = animationName
+        animationView.animation = LottieAnimation.named(animationName)
+        animationView.play()
 
         return view
     }
 
-    func updateUIView(_ uiView: UIViewType, context: Context) {
-        // 필요시 업데이트 처리
+    func updateUIView(_ uiView: UIView, context: Context) {
+        let coordinator = context.coordinator
+        let animationView = coordinator.animationView
+
+        if coordinator.currentAnimationName != animationName {
+            coordinator.currentAnimationName = animationName
+            animationView.animation = LottieAnimation.named(animationName)
+            animationView.play()
+        }
     }
 }

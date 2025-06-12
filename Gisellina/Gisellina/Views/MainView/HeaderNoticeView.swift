@@ -14,7 +14,7 @@ struct HeaderNoticeView: View {
             Text("변호사님,")
                 .bold()
             
-            Text("오늘의 업무 어쩌고")
+            Text("오늘의 업무를 확인하세요")
         }
         .foregroundStyle(.c3ProgressForeground)
         .padding(.horizontal, 30)

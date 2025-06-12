@@ -10,7 +10,7 @@ struct ExerciseMissionDetail: Decodable, Identifiable, Equatable, Hashable {
     let id: UUID
     let userId: UUID
     let exerciseDetail: MissionDetail
-    let isDone: Bool
+    var isDone: Bool
     let createdAt: String
     
     

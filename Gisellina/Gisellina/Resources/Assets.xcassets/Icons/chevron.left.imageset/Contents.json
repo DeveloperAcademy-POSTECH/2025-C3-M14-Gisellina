@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "charvon.left.svg",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
