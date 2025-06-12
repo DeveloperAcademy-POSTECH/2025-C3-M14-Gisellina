@@ -24,7 +24,7 @@ struct NavigationIconButton: View {
 
     var body: some View {
         Button(action: action) {
-            Image(systemName: iconName)
+            Image(iconName)
                 .foregroundColor(iconColor) // ← 여기서 적용
                 .font(.system(size: 24, weight: .bold))
         }
