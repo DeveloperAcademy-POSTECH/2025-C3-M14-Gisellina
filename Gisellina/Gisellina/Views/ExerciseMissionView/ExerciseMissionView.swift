@@ -11,6 +11,7 @@ struct ExerciseMissionView: View {
     let client = SupabaseManager.shared.client
     @State var missions: [ExerciseMissionDetail]
     @State private var completedMissions: Set<UUID> = []
+    @State private var initialOrder: [UUID] = []
     @EnvironmentObject var router: Router
     
     
@@ -79,7 +80,10 @@ struct ExerciseMissionView: View {
                                                 .execute()
                                                 print("✅ RPC 성공, 완료됨")
                                                 completedMissions.insert(mission.id) // UI 업데이트
-                                                self.missions = try await MissionService.fetchAllExerciseMissions()
+//                                                self.missions = try await MissionService.fetchAllExerciseMissions()
+                                                if let index = missions.firstIndex(where: { $0.id == mission.id }) {
+                                                                missions[index].isDone = true
+                                                            }
                                             } catch {
                                                 print("❌ 완료 실패: \(error)")
                                             }
