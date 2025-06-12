@@ -49,10 +49,32 @@ final class MissionViewModel: ObservableObject {
     
     func loadDoneStudyMissions() async {
         do {
-            studyDoneMissions = try await MissionListService.fetchDoneMissions()
+            let all = try await MissionListService.fetchDoneMissions()
+            self.studyDoneMissions = all.filter { $0.mission == "study" }
         } catch {
             errorMessage = error.localizedDescription
-            print("❌ exerciseDone 미션 로드 실패: \(error)")
+            print("❌ study 미션 로드 실패: \(error)")
         }
+    }
+}
+
+
+struct GroupedMissionList: Identifiable {
+    let id = UUID()
+    let date: String
+    let missions: [MissionList]
+}
+
+extension MissionViewModel {
+    var groupedExerciseDoneMissions: [GroupedMissionList] {
+        guard let done = exerciseDoneMissions else { return [] }
+
+        let groupedDict = Dictionary(grouping: done) { mission in
+            String(mission.createdAt.prefix(10)) // "2025-06-11T..." → "2025-06-11"
+        }
+
+        return groupedDict
+            .map { GroupedMissionList(date: $0.key, missions: $0.value) }
+            .sorted { $0.date > $1.date } // 최신 날짜 먼저
     }
 }
