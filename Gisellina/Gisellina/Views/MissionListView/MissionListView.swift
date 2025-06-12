@@ -34,10 +34,10 @@ struct MissionListView: View {
             
             VStack(spacing: 0){
                 HStack(spacing: 0){
-                    tabButton(title: "사전 검토하기", isSelected: selectedTab == .study) {
+                    tabButton(title: "사건 검토하기", isSelected: selectedTab == .study) {
                         selectedTab = .study
                     }
-                    tabButton(title: "사전 점검하기", isSelected: selectedTab == .exercise) {
+                    tabButton(title: "컨디션 점검하기", isSelected: selectedTab == .exercise) {
                         selectedTab = .exercise
                     }
                 }
@@ -55,9 +55,9 @@ struct MissionListView: View {
             
             
                 if selectedTab == .study {
-                    StudyMissionListView(missionList: missionViewModel.exerciseDoneMissions ?? [])
+                    StudyMissionListView(missionList: missionViewModel.studyDoneMissions ?? [])
                 } else {
-                    ExerciseMissionListView(missionList: missionViewModel.exerciseDoneMissions ?? [])
+                    ExerciseMissionListView(missionList: missionViewModel.groupedExerciseDoneMissions)
                 }
             
             Spacer()
@@ -69,6 +69,7 @@ struct MissionListView: View {
             
             Task {
                 await missionViewModel.loadDoneExerciseMissions()
+                await missionViewModel.loadDoneStudyMissions()
             }
         }
     }
