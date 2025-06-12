@@ -53,3 +53,9 @@ struct UserService {
     }
 }
 
+extension UserService {
+    static func resetUserID() {
+        UserDefaults.standard.removeObject(forKey: "user_id")
+        print("🧼 유저 UUID 초기화 완료")
+    }
+}

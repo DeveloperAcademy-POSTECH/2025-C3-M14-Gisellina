@@ -21,6 +21,8 @@ final class UserViewModel: ObservableObject {
             print("UserDailyInfo 로드 실패: \(error)")
         }
     }
+    
+    
 }
 
 extension UserViewModel {
