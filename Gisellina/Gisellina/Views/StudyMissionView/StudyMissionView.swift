@@ -28,7 +28,6 @@ struct StudyMissionView : View {
             
             VStack(spacing: 12){
                 
-                //MARK: - Top Navigation Menu Bar(look like Noah View)
                 CustomNavigationBar(
                     title: "사건 검토하기",
                     titleColor: .white,    // ← 제목 텍스트 색상
@@ -42,7 +41,7 @@ struct StudyMissionView : View {
                     rightItem: AnyView(
                         NavigationIconButton(
                             action: { showHintSheet.toggle() },
-                            iconName: "gear",
+                            iconName: "hint_icon",
                             iconColor: .white  // ← 오른쪽 아이콘 색상
                         )
                         .sheet(isPresented: $showHintSheet) {
@@ -60,6 +59,7 @@ struct StudyMissionView : View {
                     Image("MissionCharacter")
                         .resizable()
                         .scaledToFit()
+                        .frame(width: 170)
                 }
                 .frame(maxWidth: .infinity)
                 //MARK: - Data 가정해져야 한다.
@@ -71,19 +71,28 @@ struct StudyMissionView : View {
                                 .lineSpacing(6)
                                 .multilineTextAlignment(.leading)
                                 .padding(.bottom, 40)
+                                
                         }
+                        .padding()
+                        .background(.c3MainButtonForeground)
+                        .clipShape(RoundedRectangle(cornerRadius: 10))
                         .frame(height: 260)
                         .scrollIndicators(.hidden)
                     }
                 }
                 
-                .padding(.top, 36)
+                .padding(.top, 30)
                 
-                NavigationLink {
-                    CreateAnswerView()
+                Button {
+                    router.push(.studyMissionWrite(mission)) // ← 라우터 이용
                 } label: {
-                    StudyButton(studyButtonTitle: "답변 작성하기", studyButtonColor: Color("StudyButton"), studyButtonHeight: 52)
+                    StudyButton(
+                        studyButtonTitle: "답변 작성하기",
+                        studyButtonColor: Color("StudyButton"),
+                        studyButtonHeight: 52
+                    )
                 }
+
                 
                 Spacer()
             }

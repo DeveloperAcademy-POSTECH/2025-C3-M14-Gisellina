@@ -8,8 +8,8 @@ struct StudyMissionCompleteView : View {
     @State private var detailCase: String? = nil
     @State private var scrollOffset: CGFloat = 0
     private let screenWidth = UIScreen.main.bounds.width
-    
-    let currentMissionID: UUID?
+    let mission: StudyMissionDetail
+    let userAnswer: String
     
     //MARK: - Safe Area Top을 설정합니다.
     
@@ -34,7 +34,7 @@ struct StudyMissionCompleteView : View {
                     titleColor: .white
                 )
                 
-                Text("답변서 제출이 완료되었습니다.")
+                Text("답변서 제출이 완료되었습니다!")
                     .font(.title3)
                     .foregroundColor(.white)
                     .padding(.vertical, 20)
@@ -42,7 +42,7 @@ struct StudyMissionCompleteView : View {
                 //MARK: - Main View
                 ScrollView(.horizontal, showsIndicators: false) {
                     LazyHStack(alignment: .center) {
-                        VStack {
+                        VStack(alignment: .leading) {
                             HStack(spacing: 8) {
                                 Image("icon-park_good")
                                     .resizable()
@@ -51,17 +51,21 @@ struct StudyMissionCompleteView : View {
                                 
                                 Text("모범 답안")
                                     .font(.title2)
+                                    .bold()
+                                    
                             }
                             .padding(12)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .multilineTextAlignment(.center)
                             
                             ScrollView {
-                                Text(detailCase ?? "모범답안이 없습니다.")
+                                Text(mission.missionDetail.answer ?? "답안")
                                     .font(.body)
                                     .padding(.horizontal)
+                                    .padding(.bottom, 24)
                             }
                             .scrollIndicators(.hidden)
+                            .padding(.bottom, 12)
                         }
                         .frame(width: UIScreen.main.bounds.width - 60)
                         .background(Color.white)
@@ -69,7 +73,7 @@ struct StudyMissionCompleteView : View {
                         .shadow(color: Color.black.opacity(0.25), radius: 10, x: 0, y: 4)
                         .padding(.vertical, 18)
                         
-                        VStack {
+                        VStack(alignment: .leading) {
                             HStack(spacing: 8) {
                                 Image("icon-park_good")
                                     .resizable()
@@ -78,16 +82,20 @@ struct StudyMissionCompleteView : View {
                                 
                                 Text("나의 답안")
                                     .font(.title2)
+                                    .bold()
                             }
                             .padding(12)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .multilineTextAlignment(.center)
                             
                             ScrollView {
-                                Text(answer ?? "답변이 없습니다.")
+                                Text(userAnswer)
                                     .font(.body)
+                                    .padding(.horizontal)
+                                    .padding(.bottom, 12)
                             }
                             .scrollIndicators(.hidden)
+                            .padding(.bottom, 24)
                         }
                         .padding(.horizontal)
                         .frame(width: UIScreen.main.bounds.width - 60)
@@ -116,27 +124,6 @@ struct StudyMissionCompleteView : View {
                 Spacer()
             }
             .navigationBarBackButtonHidden(true)
-            .onAppear {
-                print("🟡 전달받은 currentMissionID: \(String(describing: currentMissionID))")
-                Task {
-                    do {
-                        if let missionID = currentMissionID {
-                            print("🟢 Supabase 쿼리에 사용된 missionID: \(missionID)")
-                            if let info = try await StudyCompleteService.fetchStudyComplete(missionID: missionID) {
-                                self.answer = info.answer
-
-                                if let detailID = info.detail_id {
-                                    if let missionDetail = try await StudyCompleteService.fetchMissionDetail(detailID: detailID) {
-                                        self.detailCase = missionDetail.detail_answer
-                                    }
-                                }
-                            }
-                        }
-                    } catch {
-                        print("❌ 답변 불러오기 실패:", error)
-                    }
-                }
-            }
         }
     }
 }
@@ -209,8 +196,3 @@ struct StudyCompleteModel: Identifiable, Codable, Equatable, Hashable {
 
 
 
-
-
-#Preview {
-    StudyMissionCompleteView(currentMissionID: UUID())
-}
