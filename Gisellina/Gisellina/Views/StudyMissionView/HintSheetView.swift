@@ -30,6 +30,7 @@ struct HintSheetView: View {
                 }
                 
             }
+            .padding(.bottom, 4)
         }
         .padding(24)
         .frame(maxWidth: .infinity, maxHeight:.infinity, alignment: .topLeading)
