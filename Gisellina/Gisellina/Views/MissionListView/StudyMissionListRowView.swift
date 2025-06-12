@@ -20,19 +20,17 @@ struct StudyMissionListCell: View {
     var body: some View {
         HStack(spacing: 10){
             VStack(alignment: .leading, spacing: 4) {
-                Text(missionDetail.createdAt)
+                Text(missionDetail.createdAt.prefix(10))
                     .font(.system(size: 14, weight: .regular))
                     .foregroundStyle(.gray)
                 Text(missionDetail.detailBody)
                     .font(.system(size: 16, weight: .bold))
             }
-            Spacer()
-//                        Image(systemName: "checkmark.circle.fill")
-//                            .resizable()
-//                            .frame(width: 40, height: 40)
-            Image(systemName: "chevron.right")
-                .font(.system(size: 24, weight: .bold))
-                .foregroundStyle(.blue .opacity(0.5))
+//            Spacer()
+//            
+//            Image(systemName: "chevron.right")
+//                .font(.system(size: 24, weight: .bold))
+//                .foregroundStyle(.blue .opacity(0.5))
         }
         .padding(24)
         .background(Color.blue.opacity(0.1))
